@@ -5,6 +5,7 @@ import scad
 import requests
 import csv
 import json
+import re
 from os import getcwd
 
 def drop_all(g):
@@ -119,33 +120,46 @@ def readMALSpec():
                 for d in assets:
                     
                     if(d["name"] == words[0]):
+                        line = ''.join(words)
+                        lineContent = re.split('\[|\]|<--|-->', line)
+                        # print(lineContent)
+                        
                         assoc = {}
-                        if(len(words) == 8):
-                            fix = words[6].split("[")
-                            card = fix[0]
-                            role = '[' + fix[1]
-                            asset2 = words[7]
-                        else:
-                            card = words[6]
-                            role = words[7]
-                            asset2 = words[8]
+                        # if(len(words) == 8):
+                        #     fix = words[6].split("[")
+                        #     card = fix[0]
+                        #     role = '[' + fix[1]
+                        #     asset2 = words[7]
+                        # else:
+                        #     card = words[6]
+                        #     role = words[7]
+                        #     asset2 = words[8]
 
-                        assoc["linkName"] = words[4]
-                        assoc["asset1"] = words[0]
-                        assoc["asset2"] = asset2
-                        chars = "[]"
-                        for c in chars:
-                            words[1].replace(c, '')
-                            words[7].replace(c, '')
-                        assoc["role1"] = words[1]
-                        assoc["role2"] = role
+                        # assoc["linkName"] = words[4]
+                        # assoc["asset1"] = words[0]
+                        # assoc["asset2"] = asset2
+                        # chars = "[]"
+                        # for c in chars:
+                        #     words[1].replace(c, '')
+                        #     words[7].replace(c, '')
+                        # assoc["role1"] = words[1]
+                        # assoc["role2"] = role
                         
-                        assoc["cardinality1"] = words[2]
-                        
-                        assoc["cardinality2"] = card
+                        # assoc["cardinality1"] = words[2]
+        
+                        # assoc["cardinality2"] = card
+
+                        assoc["linkName"] = lineContent[3]
+                        assoc["asset1"] = lineContent[0]
+                        assoc["asset2"] = lineContent[6]
+                        assoc["role1"] = lineContent[1]
+                        assoc["role2"] = lineContent[5]
+                        assoc["cardinality1"] = lineContent[2]
+                        assoc["cardinality2"] = lineContent[4]
+                        #print(assoc["cardinality1"], assoc["cardinality2"])
                         assocs.append(assoc)
                         break
-                
+    print(len(assocs))      
     return assets, assocs
 
 ########### DSL Layer ###############

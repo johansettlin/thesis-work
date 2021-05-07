@@ -6,8 +6,9 @@ from gremlin_python.process.traversal import P, T
 from gremlin_python.driver.driver_remote_connection import DriverRemoteConnection
 #from graphModels import exampleModel
 from graphModels import xmlToModel, mal, addAssets, readMALSpec, drop_all, addAssociations
-from graph_api import addObject, activateDefense, addAssociation, addNewObject, addNewAssociation
+from graph_api import *
 from patterns import *
+from tests import drawInstanceLevel
 
 
 def exampleGraph(g):
@@ -141,33 +142,81 @@ if __name__ == "__main__":
     #instance layer
     xmlToModel(g, './data-models/pw-reuse.sCAD', './data-models/pw-reuse.csv')
 
+    cred = g.V().where(__.out("instanceOf").hasLabel("Application")).toList()
+    print(cred)
+    #o = addNewObject(g, "Identity", "id100")
+    #o2 = addNewObject(g, "Data", "datax")
+    #addNewAssociation(g, o, o2, "ReadPrivileges")
+    #print(g.V().where(__.out("instanceOf").hasLabel("Identity")).toList())
+    #drawInstanceLevel(g)
+    #Every Identity that is connected to 2 or more application
+    x = g.V().match(__.as_("identity").where(__.out("instanceOf").hasLabel("Identity")),\
+                    __.as_("identity").where(__.out().out("instanceOf").hasLabel("Application").count().is_(P.gte(2))),\
+                    __.as_("identity").out().where(__.out("instanceOf").hasLabel("Application")).fold().as_("apps"),\
+                    __.as_("identity").out().where(__.and_(__.not_(__.out("instanceOf").hasLabel("Application")),\
+                                                    __.out().out("instanceOf").out("instanceOf").hasLabel("assets")))\
+                                            .fold().as_("neigbours")).\
+            select("identity","apps","neigbours" ).toList()
+    #print(x)
+    #Replacement pattern needs to make the pattern unvalid buy for example making making the identy only connect to 
+    #1 application
+    #Create get active defenses, and somehowe copy TTC??(maybe not) for attacksteps
+    for a in x:
+        ## remove all but 1 connection
+        for i in range(len(a['apps'])-1):
+            roleOfApp = getRoleInAssociation(g, a['identity'], a['apps'][i])
+            removeAssociation(g, a['identity'], a['apps'][i], roleOfApp)
+            o = addNewObject(g, "Identity", "newId")
+            link = getLinkName(g, a['identity'], a['apps'][i], roleOfApp)
+            addNewAssociation(g, o, a['apps'][i], link)
+            for j in range(len(a['neigbours'])):
+                roleOfIdentity = getRoleInAssociation(g, a['neigbours'][j], a['identity'])
+                link = getLinkName(g, a['neigbours'][j], a['identity'], roleOfIdentity)
+                addNewAssociation(g, a['neigbours'][j], o, link)
+    validatePatternExchange(g)
 
-    o = addNewObject(g, "Identity", "id100")
-    o2 = addNewObject(g, "Data", "datax")
-    addNewAssociation(g, o, o2, "ReadPrivileges")
-
-    #Validate an object
-    check = g.V(o.id).outE().where(__.and_(__.inV().out("instanceOf").out("instanceOf").hasLabel("assets"), __.not_(__.inV().has('v',0)))).project("role", "end").by(__.label()).by(__.inV()).toList()
-
-    label= g.V(o.id).out("instanceOf").label().next()
-    for edge in check:
-        card = g.V(edge['end'].id).out("instanceOf").out("associations").has("role", edge['role']).where(__.out("targetType").hasLabel(label)).values("cardinality_begin").next()
-        #from o to edge['end'] via edge['role'] has cardinality card
-        x = card.split(".")
-        if(len(x) > 1):
-            begin = x[0]
-            end = x[1]
-        else:
-            begin = x[0]
-        print(begin)
+    
 
 
+    #### Get all credential that has not a data connected and
+    #  that is connected to a identity 
+
+    p = g.V().match(__.as_("cred").where(__.out("instanceOf").hasLabel("Credentials")),\
+                    
+                    __.as_("cred").out("identities").where(__.out("instanceOf").hasLabel("Identity")).as_("id"),\
+                    
+                    __.not_(__.as_("cred").out().\
+                        where(__.out("instanceOf").hasLabel("Data").out().as_("id"))))\
+                .select("cred", "id").toList()
+    #print(p)
+
+    for a in p:
+        removeAssociation(g, a['cred'], a['id'], "identities")
+        data = addNewObject(g, "Data", "data")
+        addNewAssociation(g, a['cred'], data, "EncryptionCredentials")
+        addNewAssociation(g, data, a['id'], "ReadPrivileges")
+
+        validatePatternExchange(g)
+    
+
+    ### PAttern 3 ### all application that is not connected to another application.
+
+    notP = g.V()\
+            .match(__.as_("apps").where(__.out("instanceOf").hasLabel("Application")),\
+                   __.as_("apps").where(__.not_(__.out().out("instanceOf").hasLabel("Application")))).\
+            select("apps").toList()
+    #print(notP)
+
+    for p in notP:
+        o = addNewObject(g, "Application", "newApp")
+        addNewAssociation(g, p, o, "AppExecution")
+
+        validatePatternExchange(g)
+
+    
+    #drawInstanceLevel(g)
 
 
-    print(g.V(o.id).outE().inV().where(__.out("instanceOf").out("instanceOf").hasLabel("assets")).toList())
-    print(g.V(o.id).properties().toList())
-    print(g.V(o.id).bothE().where(__.otherV().out("instanceOf").out("instanceOf").hasLabel("assets")).properties().toList())
- 
     
 
     
