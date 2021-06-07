@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.foreseeti.kernalCAD:XMIObjectModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:com.foreseeti.kernalCAD="http:///com/foreseeti/ObjectModel.ecore" samplingMethod="FORWARD" integerUniformJumpRange="0" integerPrunedUniformJumpStep="0" warningThreshold="100">
+  <objects description="" id="6559785121407584711" name="Credentials" metaConcept="Credentials" template="false" exportedId="1">
+    <evidenceAttributes metaConcept="AttemptAccess"/>
+    <evidenceAttributes metaConcept="CredentialTheft"/>
+    <evidenceAttributes metaConcept="NotDisclosed">
+      <evidenceDistribution type="Bernoulli">
+        <parameters name="probability" value="1.0"/>
+      </evidenceDistribution>
+    </evidenceAttributes>
+    <evidenceAttributes metaConcept="Use"/>
+    <evidenceAttributes metaConcept="UseLeakedCredentials"/>
+    <existence type="FixedBoolean">
+      <parameters name="fixed" value="1.0"/>
+    </existence>
+  </objects>
+  <objects description="" id="1064565274860078382" name="Identity" metaConcept="Identity" template="false" exportedId="2">
+    <evidenceAttributes metaConcept="Assume"/>
+    <evidenceAttributes metaConcept="AttemptAssume"/>
+    <evidenceAttributes metaConcept="AttemptAssumeAfter2FA"/>
+    <evidenceAttributes metaConcept="Disabled">
+      <evidenceDistribution type="Bernoulli">
+        <parameters name="probability"/>
+      </evidenceDistribution>
+    </evidenceAttributes>
+    <evidenceAttributes metaConcept="TwoFactorAuthentication"/>
+    <existence type="FixedBoolean">
+      <parameters name="fixed" value="1.0"/>
+    </existence>
+  </objects>
+  <objects description="" id="7439033359290286257" name="Attacker" metaConcept="Attacker" template="false" exportedId="3">
+    <evidenceAttributes metaConcept="EntryPoint"/>
+    <existence type="FixedBoolean">
+      <parameters name="fixed" value="1.0"/>
+    </existence>
+  </objects>
+  <associations description="" sourceObject="6559785121407584711" targetObject="1064565274860078382" id="2261042738087085390" sourceProperty="identities" targetProperty="credentials"/>
+  <associations description="" sourceObject="7439033359290286257" targetObject="6559785121407584711" id="1495940550789581560" sourceProperty="firstSteps" targetProperty="credentialTheft.attacker"/>
+  <defenseDefaultValueConfigurations metaConcept="Application">
+    <attributeConfigurations metaConcept="Disabled">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed"/>
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="ConnectionRule">
+    <attributeConfigurations metaConcept="Disabled">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed"/>
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="Filtered">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed"/>
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="Credentials">
+    <attributeConfigurations metaConcept="NotDisclosed">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed"/>
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="Data">
+    <attributeConfigurations metaConcept="Authenticated">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed"/>
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="DataNotPresent">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed"/>
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="Identity">
+    <attributeConfigurations metaConcept="Disabled">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed"/>
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="TwoFactorAuthentication">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed"/>
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="Network">
+    <attributeConfigurations metaConcept="EavesdropDefense">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed"/>
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="ManInTheMiddleDefense">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed"/>
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="NetworkAccessControl">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed"/>
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="Privileges">
+    <attributeConfigurations metaConcept="Disabled">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed"/>
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="RoutingFirewall">
+    <attributeConfigurations metaConcept="Disabled">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed"/>
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="SoftwareVulnerability">
+    <attributeConfigurations metaConcept="AvailabilityImpactLimitations">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed"/>
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="ConfidentialityImpactLimitations">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed"/>
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="HighComplexityExploitRequired">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed"/>
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="HighPrivilegesRequired">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed"/>
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="IntegrityImpactLimitations">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed"/>
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="LocalAccessRequired">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed"/>
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="LowPrivilegesRequired">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed"/>
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="NetworkAccessRequired">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed"/>
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="PhysicalAccessRequired">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed"/>
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed"/>
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteractionRequired">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed"/>
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="System">
+    <attributeConfigurations metaConcept="HardwareModificationsProtection">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed"/>
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="UnknownSoftwareVulnerability">
+    <attributeConfigurations metaConcept="AvailabilityImpactLimitations">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed"/>
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="ConfidentialityImpactLimitations">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed"/>
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="HighComplexityExploitRequired">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed"/>
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="HighPrivilegesRequired">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed"/>
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="IntegrityImpactLimitations">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed"/>
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="LocalAccessRequired">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed"/>
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="LowPrivilegesRequired">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed"/>
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="NetworkAccessRequired">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed"/>
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="PhysicalAccessRequired">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed"/>
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed"/>
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteractionRequired">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed"/>
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="User">
+    <attributeConfigurations metaConcept="NoPasswordReuse">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed"/>
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+</com.foreseeti.kernalCAD:XMIObjectModel>

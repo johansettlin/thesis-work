@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.foreseeti.securiCAD:ModelViews xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:com.foreseeti.securiCAD="http:///com/foreseeti/ModelViews.ecore">
+  <view name="View 1" editor="com.foreseeti.kernelcad.canvasui.editor.DefaultEditor" loadOnStart="true" routingMethod="SHORTEST" index="-1">
+    <viewItem xsi:type="com.foreseeti.securiCAD:ViewNode" id="-2105046668185810995">
+      <location x="71" y="68" width="-1" height="-1"/>
+    </viewItem>
+    <viewItem xsi:type="com.foreseeti.securiCAD:ViewNode" id="-981166254852584452">
+      <location x="440" y="342" width="-1" height="-1"/>
+    </viewItem>
+    <viewItem xsi:type="com.foreseeti.securiCAD:ViewNode" id="-4072416713446045619">
+      <location x="83" y="233" width="-1" height="-1"/>
+    </viewItem>
+    <viewItem xsi:type="com.foreseeti.securiCAD:ViewNode" id="5933740173257100986">
+      <location x="341" y="52" width="-1" height="-1"/>
+    </viewItem>
+    <viewConnection id="2682807197208166923" sourceId="5933740173257100986" targetId="-981166254852584452" sourceProperty="firstSteps" targetProperty="attemptAccess.attacker"/>
+    <viewConnection id="1528489749519942988" sourceId="-981166254852584452" targetId="-4072416713446045619" sourceProperty="identities" targetProperty="credentials"/>
+    <viewConnection id="-2930849286585693970" sourceId="-4072416713446045619" targetId="-2105046668185810995" sourceProperty="highPrivApps" targetProperty="highPrivAppIds"/>
+  </view>
+</com.foreseeti.securiCAD:ModelViews>

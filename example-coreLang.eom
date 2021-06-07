@@ -1,0 +1,520 @@
+<?xml version='1.0' encoding='utf8'?>
+<com.foreseeti.kernalCAD:XMIObjectModel xmlns:com.foreseeti.kernalCAD="http:///com/foreseeti/ObjectModel.ecore" xmlns:xmi="http://www.omg.org/XMI" xmi:version="2.0" samplingMethod="FORWARD" integerUniformJumpRange="0" integerPrunedUniformJumpStep="0" warningThreshold="100">
+  <defenseDefaultValueConfigurations metaConcept="ConnectionRule">
+    <attributeConfigurations metaConcept="Disabled">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="Data">
+    <attributeConfigurations metaConcept="Authenticated">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="DataNotPresent">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="Identity">
+    <attributeConfigurations metaConcept="TwoFactorAuthentication">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="LHHNVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="LHHRVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="LHLNVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="LHLRVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="LHNNVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="LHNRVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="LLHNVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="LLHRVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="LLLNVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="LLLRVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="LLNNVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="LLNRVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="ManualHighImpactVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="ManualLowImpactVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="NHHNVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="NHHRVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="NHLNVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="NHLRVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="NHNNVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="NHNRVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="NLHNVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="NLHRVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="NLLNVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="NLLRVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="NLNNVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="NLNRVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="Network">
+    <attributeConfigurations metaConcept="EavesdropDefense">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="ManInTheMiddleDefense">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="NetworkAccessControl">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="System">
+    <attributeConfigurations metaConcept="HardwareModificationsProtection">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="UnknownVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+<objects description="" id="24527" name="id1" metaConcept="Identity" template="false" exportedId="1">
+  <existence type="FixedBoolean">
+    <parameters name="fixed" value="1.0" />
+  </existence>
+  <evidenceAttributes metaConcept="attemptAssume" />
+  <evidenceAttributes metaConcept="successfulAssume" />
+  <evidenceAttributes metaConcept="attemptAssumeAfter2FA" />
+  <evidenceAttributes metaConcept="successfulAssumeAfter2FA" />
+  <evidenceAttributes metaConcept="assume" />
+</objects>
+<objects description="" id="24800" name="Application" metaConcept="Application" template="false" exportedId="2">
+  <existence type="FixedBoolean">
+    <parameters name="fixed" value="1.0" />
+  </existence>
+  <evidenceAttributes metaConcept="localConnect" />
+  <evidenceAttributes metaConcept="attemptUseVulnerability" />
+  <evidenceAttributes metaConcept="useVulnerability" />
+  <evidenceAttributes metaConcept="networkConnect" />
+  <evidenceAttributes metaConcept="accessNetworkAndConnections" />
+  <evidenceAttributes metaConcept="networkRequestConnect" />
+  <evidenceAttributes metaConcept="networkRespondConnect" />
+  <evidenceAttributes metaConcept="specificAccessFromLocalConnection" />
+  <evidenceAttributes metaConcept="specificAccessFromNetworkConnection" />
+  <evidenceAttributes metaConcept="specificAccess" />
+  <evidenceAttributes metaConcept="attemptLocalConnectVulnOnHost" />
+  <evidenceAttributes metaConcept="authenticate" />
+  <evidenceAttributes metaConcept="specificAccessAuthenticate" />
+  <evidenceAttributes metaConcept="localAccess" />
+  <evidenceAttributes metaConcept="networkAccess" />
+  <evidenceAttributes metaConcept="fullAccess" />
+  <evidenceAttributes metaConcept="physicalAccessAchieved" />
+  <evidenceAttributes metaConcept="attemptFullAccessAfterSoftProdVulnerability" />
+  <evidenceAttributes metaConcept="attemptReadAfterSoftProdVulnerability" />
+  <evidenceAttributes metaConcept="attemptModifyAfterSoftProdVulnerability" />
+  <evidenceAttributes metaConcept="attemptDenyAfterSoftProdVulnerability" />
+  <evidenceAttributes metaConcept="softwareProductVulnerabilityLocalAccessAchieved" />
+  <evidenceAttributes metaConcept="softwareProductVulnerabilityNetworkAccessAchieved" />
+  <evidenceAttributes metaConcept="softwareProductVulnerabilityPhysicalAccessAchieved" />
+  <evidenceAttributes metaConcept="softwareProductVulnerabilityLowPrivilegesAchieved" />
+  <evidenceAttributes metaConcept="softwareProductVulnerabilityHighPrivilegesAchieved" />
+  <evidenceAttributes metaConcept="attemptSoftwareProductAbuse" />
+  <evidenceAttributes metaConcept="softwareProductAbuse" />
+  <evidenceAttributes metaConcept="fullAccessAfterSoftProdVulnerability" />
+  <evidenceAttributes metaConcept="readAfterSoftProdVulnerability" />
+  <evidenceAttributes metaConcept="modifyAfterSoftProdVulnerability" />
+  <evidenceAttributes metaConcept="denyAfterSoftProdVulnerability" />
+  <evidenceAttributes metaConcept="attemptApplicationRespondConnectThroughData" />
+  <evidenceAttributes metaConcept="read" />
+  <evidenceAttributes metaConcept="modify" />
+  <evidenceAttributes metaConcept="deny" />
+  <evidenceAttributes metaConcept="denyFromConnectionRule" />
+  </objects>
+  <objects description="" id="24569" name="Application" metaConcept="Application" template="false" exportedId="3" objattributesJsonString="{&amp;quot;OS&amp;quot;:&amp;quot;Linux&amp;quot;}">
+    <existence type="FixedBoolean">
+      <parameters name="fixed" value="1.0" />
+    </existence>
+    <evidenceAttributes metaConcept="localConnect" />
+    <evidenceAttributes metaConcept="attemptUseVulnerability" />
+    <evidenceAttributes metaConcept="useVulnerability" />
+    <evidenceAttributes metaConcept="networkConnect" />
+    <evidenceAttributes metaConcept="accessNetworkAndConnections" />
+    <evidenceAttributes metaConcept="networkRequestConnect" />
+    <evidenceAttributes metaConcept="networkRespondConnect" />
+    <evidenceAttributes metaConcept="specificAccessFromLocalConnection" />
+    <evidenceAttributes metaConcept="specificAccessFromNetworkConnection" />
+    <evidenceAttributes metaConcept="specificAccess" />
+    <evidenceAttributes metaConcept="attemptLocalConnectVulnOnHost" />
+    <evidenceAttributes metaConcept="authenticate" />
+    <evidenceAttributes metaConcept="specificAccessAuthenticate" />
+    <evidenceAttributes metaConcept="localAccess" />
+    <evidenceAttributes metaConcept="networkAccess" />
+    <evidenceAttributes metaConcept="fullAccess" />
+    <evidenceAttributes metaConcept="physicalAccessAchieved" />
+    <evidenceAttributes metaConcept="attemptFullAccessAfterSoftProdVulnerability" />
+    <evidenceAttributes metaConcept="attemptReadAfterSoftProdVulnerability" />
+    <evidenceAttributes metaConcept="attemptModifyAfterSoftProdVulnerability" />
+    <evidenceAttributes metaConcept="attemptDenyAfterSoftProdVulnerability" />
+    <evidenceAttributes metaConcept="softwareProductVulnerabilityLocalAccessAchieved" />
+    <evidenceAttributes metaConcept="softwareProductVulnerabilityNetworkAccessAchieved" />
+    <evidenceAttributes metaConcept="softwareProductVulnerabilityPhysicalAccessAchieved" />
+    <evidenceAttributes metaConcept="softwareProductVulnerabilityLowPrivilegesAchieved" />
+    <evidenceAttributes metaConcept="softwareProductVulnerabilityHighPrivilegesAchieved" />
+    <evidenceAttributes metaConcept="attemptSoftwareProductAbuse" />
+    <evidenceAttributes metaConcept="softwareProductAbuse" />
+    <evidenceAttributes metaConcept="fullAccessAfterSoftProdVulnerability" />
+    <evidenceAttributes metaConcept="readAfterSoftProdVulnerability" />
+    <evidenceAttributes metaConcept="modifyAfterSoftProdVulnerability" />
+    <evidenceAttributes metaConcept="denyAfterSoftProdVulnerability" />
+    <evidenceAttributes metaConcept="attemptApplicationRespondConnectThroughData" />
+    <evidenceAttributes metaConcept="read" />
+    <evidenceAttributes metaConcept="modify" />
+    <evidenceAttributes metaConcept="deny" />
+    <evidenceAttributes metaConcept="denyFromConnectionRule" />
+  </objects>
+  <objects description="" id="24495" name="cred1" metaConcept="Credentials" template="false" exportedId="4">
+    <existence type="FixedBoolean">
+      <parameters name="fixed" value="1.0" />
+    </existence>
+    <evidenceAttributes metaConcept="useLeakedCredentials" />
+    <evidenceAttributes metaConcept="use" />
+    <evidenceAttributes metaConcept="attemptAccess" />
+    <evidenceAttributes metaConcept="credentialTheft" />
+  </objects>
+  <objects description="" id="25036" name="data" metaConcept="Data" template="false" exportedId="5">
+    <existence type="FixedBoolean">
+      <parameters name="fixed" value="1.0" />
+    </existence>
+    <evidenceAttributes metaConcept="identityAttemptRead" />
+    <evidenceAttributes metaConcept="identityRead" />
+    <evidenceAttributes metaConcept="attemptWrite" />
+    <evidenceAttributes metaConcept="identityAttemptWrite" />
+    <evidenceAttributes metaConcept="identityWrite" />
+    <evidenceAttributes metaConcept="attemptDelete" />
+    <evidenceAttributes metaConcept="identityAttemptDelete" />
+    <evidenceAttributes metaConcept="identityDelete" />
+    <evidenceAttributes metaConcept="read" />
+    <evidenceAttributes metaConcept="write" />
+    <evidenceAttributes metaConcept="delete" />
+    <evidenceAttributes metaConcept="attemptDeny" />
+    <evidenceAttributes metaConcept="deny" />
+    <evidenceAttributes metaConcept="attemptEavesdrop" />
+    <evidenceAttributes metaConcept="attemptManInTheMiddle" />
+    <evidenceAttributes metaConcept="eavesdrop" />
+    <evidenceAttributes metaConcept="manInTheMiddle" />
+    <evidenceAttributes metaConcept="compromiseAppOrigin" />
+    <evidenceAttributes metaConcept="attemptAccess" />
+    <evidenceAttributes metaConcept="attemptAccessFromIdentity" />
+    <evidenceAttributes metaConcept="access" />
+    <evidenceAttributes metaConcept="accessUnencryptedData" />
+    <evidenceAttributes metaConcept="accessDecryptedData" />
+    <evidenceAttributes metaConcept="readContainedInformation" />
+    <evidenceAttributes metaConcept="attemptApplicationRespondConnect" />
+    <evidenceAttributes metaConcept="applicationRespondConnect" />
+    <evidenceAttributes metaConcept="attemptRead" />
+  </objects>
+  <associations description="" sourceObject="24527" targetObject="24569" id="-1" sourceProperty="highPrivApps" targetProperty="highPrivAppIds" />
+  <associations description="" sourceObject="24527" targetObject="24800" id="-2" sourceProperty="lowPrivApps" targetProperty="lowPrivAppIds" />
+  <associations description="" sourceObject="24527" targetObject="25036" id="-3" sourceProperty="readPrivData" targetProperty="readingIds" />
+  <associations description="" sourceObject="24800" targetObject="24527" id="-4" sourceProperty="lowPrivAppIds" targetProperty="lowPrivApps" />
+  <associations description="" sourceObject="24569" targetObject="24527" id="-5" sourceProperty="highPrivAppIds" targetProperty="highPrivApps" />
+  <associations description="" sourceObject="24495" targetObject="25036" id="-6" sourceProperty="encryptedData" targetProperty="encryptCreds" />
+  <associations description="" sourceObject="25036" targetObject="24495" id="-7" sourceProperty="encryptCreds" targetProperty="encryptedData" />
+  <associations description="" sourceObject="25036" targetObject="24527" id="-8" sourceProperty="readingIds" targetProperty="readPrivData" />
+</com.foreseeti.kernalCAD:XMIObjectModel>

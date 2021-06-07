@@ -4,11 +4,14 @@ from gremlin_python.process.anonymous_traversal import traversal
 from gremlin_python.process.graph_traversal import __
 from gremlin_python.process.traversal import P, T
 from gremlin_python.driver.driver_remote_connection import DriverRemoteConnection
+import scad
 #from graphModels import exampleModel
 from graphModels import xmlToModel, mal, addAssets, readMALSpec, drop_all, addAssociations
 from graph_api import *
 from patterns import *
-from tests import drawInstanceLevel
+from tests import drawInstanceLevel, example1, ex1P1, runTest
+
+from proertyGraphToXML import *
 
 
 def exampleGraph(g):
@@ -125,98 +128,94 @@ def test(g):
 if __name__ == "__main__":
     
     g = traversal().withRemote(DriverRemoteConnection('ws://localhost:8182/gremlin', 'g'))
-    #exampleGraph(g)
-    drop_all(g)
-    #xmlToModel(g, './data-models/example-coreLang.sCAD')
-    #pattern1(g)
-    #pattern2(g)
 
+    drop_all(g)
     #MAL layer
     mal(g)
-
     #DSL layer
     assets, assocs = readMALSpec()
     addAssets(g, assets)
     addAssociations(g, assocs)
-
     #instance layer
-    xmlToModel(g, './data-models/pw-reuse.sCAD', './data-models/pw-reuse.csv')
+    s = xmlToModel(g, './data-models/validationModel.sCAD', './data-models/validationModel.csv')
+    #o = g.V().where(__.out("instanceOf").out("instanceOf").hasLabel("assets")).toList()
+    
+    #ex1P1(g)
+    runTest(g)
+    print("-----------")
+    print(g.V().has('name', 'data').out("instanceOf").label().toList())
+    print(g.V().has('name', 'data').out("encryptCreds").out("instanceOf").label().toList())
+    
+    convertPropertyGraphToSecuriCAD(g, s)
 
-    cred = g.V().where(__.out("instanceOf").hasLabel("Application")).toList()
-    print(cred)
-    #o = addNewObject(g, "Identity", "id100")
-    #o2 = addNewObject(g, "Data", "datax")
-    #addNewAssociation(g, o, o2, "ReadPrivileges")
-    #print(g.V().where(__.out("instanceOf").hasLabel("Identity")).toList())
-    #drawInstanceLevel(g)
-    #Every Identity that is connected to 2 or more application
-    x = g.V().match(__.as_("identity").where(__.out("instanceOf").hasLabel("Identity")),\
-                    __.as_("identity").where(__.out().out("instanceOf").hasLabel("Application").count().is_(P.gte(2))),\
-                    __.as_("identity").out().where(__.out("instanceOf").hasLabel("Application")).fold().as_("apps"),\
-                    __.as_("identity").out().where(__.and_(__.not_(__.out("instanceOf").hasLabel("Application")),\
-                                                    __.out().out("instanceOf").out("instanceOf").hasLabel("assets")))\
-                                            .fold().as_("neigbours")).\
-            select("identity","apps","neigbours" ).toList()
-    #print(x)
-    #Replacement pattern needs to make the pattern unvalid buy for example making making the identy only connect to 
-    #1 application
-    #Create get active defenses, and somehowe copy TTC??(maybe not) for attacksteps
-    for a in x:
-        ## remove all but 1 connection
-        for i in range(len(a['apps'])-1):
-            roleOfApp = getRoleInAssociation(g, a['identity'], a['apps'][i])
-            removeAssociation(g, a['identity'], a['apps'][i], roleOfApp)
-            o = addNewObject(g, "Identity", "newId")
-            link = getLinkName(g, a['identity'], a['apps'][i], roleOfApp)
-            addNewAssociation(g, o, a['apps'][i], link)
-            for j in range(len(a['neigbours'])):
-                roleOfIdentity = getRoleInAssociation(g, a['neigbours'][j], a['identity'])
-                link = getLinkName(g, a['neigbours'][j], a['identity'], roleOfIdentity)
-                addNewAssociation(g, a['neigbours'][j], o, link)
-    validatePatternExchange(g)
-
+    
     
 
 
-    #### Get all credential that has not a data connected and
-    #  that is connected to a identity 
 
-    p = g.V().match(__.as_("cred").where(__.out("instanceOf").hasLabel("Credentials")),\
-                    
-                    __.as_("cred").out("identities").where(__.out("instanceOf").hasLabel("Identity")).as_("id"),\
-                    
-                    __.not_(__.as_("cred").out().\
-                        where(__.out("instanceOf").hasLabel("Data").out().as_("id"))))\
-                .select("cred", "id").toList()
-    #print(p)
 
-    for a in p:
-        removeAssociation(g, a['cred'], a['id'], "identities")
-        data = addNewObject(g, "Data", "data")
-        addNewAssociation(g, a['cred'], data, "EncryptionCredentials")
-        addNewAssociation(g, data, a['id'], "ReadPrivileges")
+    # o1 = addNewObject(g, "Application", "app1")
+    # o2 = addNewObject(g, "Application", "app2")
+    # addNewAssociation(g, o1, o2, "AppExecution", "hostApp")
+    # validatePatternExchange(g)
+    # print(g.V(o1.id).inE().label().next())
+    # print(g.V(o2.id).inE().label().next())
 
-        validatePatternExchange(g)
+
+    #s1 = addNewObject(g, "System", "sys1")
+    #a1 = addNewObject(g, "Application", "app3")
+    #s2 = addNewObject(g, "System", "sys2")
+    #addNewAssociation(g, s1, a1, "AppContainment")
+    #addNewAssociation(g, s2, a1, "SysExecution")
+    #validatePatternExchange(g)
+    #example1(g)
     
-
-    ### PAttern 3 ### all application that is not connected to another application.
-
-    notP = g.V()\
-            .match(__.as_("apps").where(__.out("instanceOf").hasLabel("Application")),\
-                   __.as_("apps").where(__.not_(__.out().out("instanceOf").hasLabel("Application")))).\
-            select("apps").toList()
-    #print(notP)
-
-    for p in notP:
-        o = addNewObject(g, "Application", "newApp")
-        addNewAssociation(g, p, o, "AppExecution")
-
-        validatePatternExchange(g)
+    
+    
+    
+    
+    # o = g.V().has('name', "data1").next()
+    # a = g.V().has('name', "app1").next()
+    # addNewAssociation(g, o, a, "AppContainment")
+    # validatePatternExchange(g)
 
     
-    #drawInstanceLevel(g)
+    # #Add a new object that is an instance of Application and has name app2
+    # o2 = addNewObject(g, "Application", "app2")
+    # addNewAssociation(g, a, o2, "AppExecution", "hostApp")
+    # validatePatternExchange(g)
 
+    # a = g.V().has('name', "app1").next()
+    # s1 = g.V().has('name', 'sys1').next()
+    # s2 = addNewObject(g, "System", "sys2")
+    # removeObject(g, s1)
+    # addNewAssociation(g, s2, a, "SysExecution")
+
+    # validatePatternExchange(g)
+
+    # a = g.V().has('name', "app1").next()
+    # d = g.V().has('name', "data1").next()
+    # removeAssociation(g, a, d, "containedData")
+    # addNewAssociation(g, a, d, "DataInTransit")
+    # validatePatternExchange(g)
+
+    
+    
+    #scad.delete_all_objects_and_assocs(s)
+    #scad.delete_all_objects_and_assocs(s)
+    #scad.add_object(s)
+    #for o in s['eom_etree'].findall('objects'):
+        #print(o.attrib)
 
     
 
+    #for o in s['eom_etree'].findall('objects'):
+       # print(o.attrib)
+
+    #scad.add_association(scad, assoc)
+        
     
+
+
+
+    #drawInstanceLevel(g)    

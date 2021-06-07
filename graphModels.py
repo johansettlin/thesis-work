@@ -60,6 +60,7 @@ def mal(g):
 
 
 def readMALSpec():
+    #url = "https://raw.githubusercontent.com/mal-lang/coreLang/master/src/main/mal/coreLang.mal"
     url = "https://raw.githubusercontent.com/mal-lang/coreLang/master/src/main/mal/coreLang.mal"
     directory = getcwd()
 
@@ -256,7 +257,9 @@ def getActiveDefenses(file, oid, metaConcept):
         if (o.get('id') == oid):
             for evidence in o.findall('evidenceAttributes'):
                 if evidence.findall('evidenceDistribution'):
-                    activeDefenses.append(evidence.get("metaConcept"))        
+                    defense = evidence.get("metaConcept")[0].lower() + evidence.get("metaConcept")[1:]
+                    #might fix to  handle probability, on, off etc
+                    activeDefenses.append(defense)        
     return activeDefenses
 
 def addInstanceDefenses(g, vertex, oid, metaConcept, file):
@@ -333,7 +336,7 @@ def xmlToModel(g, file, csv):
             #getLinkName(g.V().has('id', a['sourceObject']), a['targetProperty'], a['sourceProperty'])
             g.V().has('id', a['sourceObject']).addE(a['sourceProperty']).to(g.V().has('id', a['targetObject'])).iterate()
             g.V().has('id', a['targetObject']).addE(a['targetProperty']).to(g.V().has('id', a['sourceObject'])).iterate()
-
+    return eom
 def addVertex(g, className, name, defenses): 
     #Need to check rules in the MAL language
     return g.addV(className)

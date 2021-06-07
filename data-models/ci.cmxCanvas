@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.foreseeti.securiCAD:ModelViews xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:com.foreseeti.securiCAD="http:///com/foreseeti/ModelViews.ecore">
+  <view name="View 1" editor="com.foreseeti.kernelcad.canvasui.editor.DefaultEditor" loadOnStart="true" routingMethod="SHORTEST" index="-1">
+    <viewItem xsi:type="com.foreseeti.securiCAD:ViewNode" id="6559785121407584711">
+      <location x="168" y="184" width="-1" height="-1"/>
+    </viewItem>
+    <viewItem xsi:type="com.foreseeti.securiCAD:ViewNode" id="1064565274860078382">
+      <location x="511" y="187" width="-1" height="-1"/>
+    </viewItem>
+    <viewItem xsi:type="com.foreseeti.securiCAD:ViewNode" id="7439033359290286257">
+      <location x="92" y="61" width="-1" height="-1"/>
+    </viewItem>
+    <viewConnection id="8282270512739403843" sourceId="7439033359290286257" targetId="6559785121407584711" sourceProperty="firstSteps" targetProperty="credentialTheft.attacker"/>
+    <viewConnection id="8069946620128282561" sourceId="6559785121407584711" targetId="1064565274860078382" sourceProperty="identities" targetProperty="credentials"/>
+  </view>
+</com.foreseeti.securiCAD:ModelViews>

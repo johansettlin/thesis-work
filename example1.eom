@@ -1,0 +1,377 @@
+<?xml version='1.0' encoding='utf8'?>
+<com.foreseeti.kernalCAD:XMIObjectModel xmlns:com.foreseeti.kernalCAD="http:///com/foreseeti/ObjectModel.ecore" xmlns:xmi="http://www.omg.org/XMI" xmi:version="2.0" samplingMethod="FORWARD" integerUniformJumpRange="0" integerPrunedUniformJumpStep="0" warningThreshold="100">
+  <defenseDefaultValueConfigurations metaConcept="ConnectionRule">
+    <attributeConfigurations metaConcept="Disabled">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="Data">
+    <attributeConfigurations metaConcept="Authenticated">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="DataNotPresent">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="Identity">
+    <attributeConfigurations metaConcept="TwoFactorAuthentication">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="LHHNVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="LHHRVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="LHLNVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="LHLRVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="LHNNVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="LHNRVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="LLHNVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="LLHRVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="LLLNVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="LLLRVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="LLNNVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="LLNRVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="ManualHighImpactVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="ManualLowImpactVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="NHHNVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="NHHRVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="NHLNVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="NHLRVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="NHNNVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="NHNRVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="NLHNVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="NLHRVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="NLLNVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="NLLRVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="NLNNVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="NLNRVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="Network">
+    <attributeConfigurations metaConcept="EavesdropDefense">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="ManInTheMiddleDefense">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="NetworkAccessControl">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="System">
+    <attributeConfigurations metaConcept="HardwareModificationsProtection">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+  <defenseDefaultValueConfigurations metaConcept="UnknownVulnerability">
+    <attributeConfigurations metaConcept="Remove">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+    <attributeConfigurations metaConcept="UserInteracts">
+      <defaultValue type="FixedBoolean">
+        <parameters name="fixed" />
+      </defaultValue>
+    </attributeConfigurations>
+  </defenseDefaultValueConfigurations>
+<objects description="" id="44462" name="Identity" metaConcept="Identity" template="false" exportedId="1000000000"><existence type="FixedBoolean"><parameters name="fixed" value="1.0" /></existence><evidenceAttributes metaConcept="attemptAssume" /><evidenceAttributes metaConcept="successfulAssume" /><evidenceAttributes metaConcept="attemptAssumeAfter2FA" /><evidenceAttributes metaConcept="successfulAssumeAfter2FA" /><evidenceAttributes metaConcept="assume" /></objects><objects description="" id="44214" name="id2" metaConcept="Identity" template="false" exportedId="1000000001"><existence type="FixedBoolean"><parameters name="fixed" value="1.0" /></existence><evidenceAttributes metaConcept="attemptAssume" /><evidenceAttributes metaConcept="successfulAssume" /><evidenceAttributes metaConcept="attemptAssumeAfter2FA" /><evidenceAttributes metaConcept="successfulAssumeAfter2FA" /><evidenceAttributes metaConcept="assume" /></objects><objects description="" id="44504" name="id3" metaConcept="Identity" template="false" exportedId="1000000002"><existence type="FixedBoolean"><parameters name="fixed" value="1.0" /></existence><evidenceAttributes metaConcept="attemptAssume" /><evidenceAttributes metaConcept="successfulAssume" /><evidenceAttributes metaConcept="attemptAssumeAfter2FA" /><evidenceAttributes metaConcept="successfulAssumeAfter2FA" /><evidenceAttributes metaConcept="assume" /></objects><objects description="" id="44172" name="id1" metaConcept="Identity" template="false" exportedId="1000000003"><existence type="FixedBoolean"><parameters name="fixed" value="1.0" /></existence><evidenceAttributes metaConcept="attemptAssume" /><evidenceAttributes metaConcept="successfulAssume" /><evidenceAttributes metaConcept="attemptAssumeAfter2FA" /><evidenceAttributes metaConcept="successfulAssumeAfter2FA" /><evidenceAttributes metaConcept="assume" /></objects><objects description="" id="45008" name="Spotify" metaConcept="Application" template="false" exportedId="1000000004"><existence type="FixedBoolean"><parameters name="fixed" value="1.0" /></existence><evidenceAttributes metaConcept="networkConnect" /><evidenceAttributes metaConcept="accessNetworkAndConnections" /><evidenceAttributes metaConcept="networkRequestConnect" /><evidenceAttributes metaConcept="networkRespondConnect" /><evidenceAttributes metaConcept="specificAccessFromLocalConnection" /><evidenceAttributes metaConcept="specificAccessFromNetworkConnection" /><evidenceAttributes metaConcept="specificAccess" /><evidenceAttributes metaConcept="attemptLocalConnectVulnOnHost" /><evidenceAttributes metaConcept="authenticate" /><evidenceAttributes metaConcept="specificAccessAuthenticate" /><evidenceAttributes metaConcept="localAccess" /><evidenceAttributes metaConcept="networkAccess" /><evidenceAttributes metaConcept="fullAccess" /><evidenceAttributes metaConcept="physicalAccessAchieved" /><evidenceAttributes metaConcept="attemptFullAccessAfterSoftProdVulnerability" /><evidenceAttributes metaConcept="attemptReadAfterSoftProdVulnerability" /><evidenceAttributes metaConcept="attemptModifyAfterSoftProdVulnerability" /><evidenceAttributes metaConcept="attemptDenyAfterSoftProdVulnerability" /><evidenceAttributes metaConcept="softwareProductVulnerabilityLocalAccessAchieved" /><evidenceAttributes metaConcept="softwareProductVulnerabilityNetworkAccessAchieved" /><evidenceAttributes metaConcept="softwareProductVulnerabilityPhysicalAccessAchieved" /><evidenceAttributes metaConcept="softwareProductVulnerabilityLowPrivilegesAchieved" /><evidenceAttributes metaConcept="softwareProductVulnerabilityHighPrivilegesAchieved" /><evidenceAttributes metaConcept="attemptSoftwareProductAbuse" /><evidenceAttributes metaConcept="softwareProductAbuse" /><evidenceAttributes metaConcept="fullAccessAfterSoftProdVulnerability" /><evidenceAttributes metaConcept="readAfterSoftProdVulnerability" /><evidenceAttributes metaConcept="modifyAfterSoftProdVulnerability" /><evidenceAttributes metaConcept="denyAfterSoftProdVulnerability" /><evidenceAttributes metaConcept="attemptApplicationRespondConnectThroughData" /><evidenceAttributes metaConcept="read" /><evidenceAttributes metaConcept="modify" /><evidenceAttributes metaConcept="deny" /><evidenceAttributes metaConcept="denyFromConnectionRule" /><evidenceAttributes metaConcept="localConnect" /><evidenceAttributes metaConcept="attemptUseVulnerability" /><evidenceAttributes metaConcept="useVulnerability" /></objects><objects description="" id="44546" name="chrome" metaConcept="Application" template="false" exportedId="1000000005" attributesJsonString="{&quot;version&quot;:&quot;2.1&quot;}"><existence type="FixedBoolean"><parameters name="fixed" value="1.0" /></existence><evidenceAttributes metaConcept="networkConnect" /><evidenceAttributes metaConcept="accessNetworkAndConnections" /><evidenceAttributes metaConcept="networkRequestConnect" /><evidenceAttributes metaConcept="networkRespondConnect" /><evidenceAttributes metaConcept="specificAccessFromLocalConnection" /><evidenceAttributes metaConcept="specificAccessFromNetworkConnection" /><evidenceAttributes metaConcept="specificAccess" /><evidenceAttributes metaConcept="attemptLocalConnectVulnOnHost" /><evidenceAttributes metaConcept="authenticate" /><evidenceAttributes metaConcept="specificAccessAuthenticate" /><evidenceAttributes metaConcept="localAccess" /><evidenceAttributes metaConcept="networkAccess" /><evidenceAttributes metaConcept="fullAccess" /><evidenceAttributes metaConcept="physicalAccessAchieved" /><evidenceAttributes metaConcept="attemptFullAccessAfterSoftProdVulnerability" /><evidenceAttributes metaConcept="attemptReadAfterSoftProdVulnerability" /><evidenceAttributes metaConcept="attemptModifyAfterSoftProdVulnerability" /><evidenceAttributes metaConcept="attemptDenyAfterSoftProdVulnerability" /><evidenceAttributes metaConcept="softwareProductVulnerabilityLocalAccessAchieved" /><evidenceAttributes metaConcept="softwareProductVulnerabilityNetworkAccessAchieved" /><evidenceAttributes metaConcept="softwareProductVulnerabilityPhysicalAccessAchieved" /><evidenceAttributes metaConcept="softwareProductVulnerabilityLowPrivilegesAchieved" /><evidenceAttributes metaConcept="softwareProductVulnerabilityHighPrivilegesAchieved" /><evidenceAttributes metaConcept="attemptSoftwareProductAbuse" /><evidenceAttributes metaConcept="softwareProductAbuse" /><evidenceAttributes metaConcept="fullAccessAfterSoftProdVulnerability" /><evidenceAttributes metaConcept="readAfterSoftProdVulnerability" /><evidenceAttributes metaConcept="modifyAfterSoftProdVulnerability" /><evidenceAttributes metaConcept="denyAfterSoftProdVulnerability" /><evidenceAttributes metaConcept="attemptApplicationRespondConnectThroughData" /><evidenceAttributes metaConcept="read" /><evidenceAttributes metaConcept="modify" /><evidenceAttributes metaConcept="deny" /><evidenceAttributes metaConcept="denyFromConnectionRule" /><evidenceAttributes metaConcept="localConnect" /><evidenceAttributes metaConcept="attemptUseVulnerability" /><evidenceAttributes metaConcept="useVulnerability" /></objects><objects description="" id="45238" name="Mail" metaConcept="Application" template="false" exportedId="1000000006"><existence type="FixedBoolean"><parameters name="fixed" value="1.0" /></existence><evidenceAttributes metaConcept="networkConnect" /><evidenceAttributes metaConcept="accessNetworkAndConnections" /><evidenceAttributes metaConcept="networkRequestConnect" /><evidenceAttributes metaConcept="networkRespondConnect" /><evidenceAttributes metaConcept="specificAccessFromLocalConnection" /><evidenceAttributes metaConcept="specificAccessFromNetworkConnection" /><evidenceAttributes metaConcept="specificAccess" /><evidenceAttributes metaConcept="attemptLocalConnectVulnOnHost" /><evidenceAttributes metaConcept="authenticate" /><evidenceAttributes metaConcept="specificAccessAuthenticate" /><evidenceAttributes metaConcept="localAccess" /><evidenceAttributes metaConcept="networkAccess" /><evidenceAttributes metaConcept="fullAccess" /><evidenceAttributes metaConcept="physicalAccessAchieved" /><evidenceAttributes metaConcept="attemptFullAccessAfterSoftProdVulnerability" /><evidenceAttributes metaConcept="attemptReadAfterSoftProdVulnerability" /><evidenceAttributes metaConcept="attemptModifyAfterSoftProdVulnerability" /><evidenceAttributes metaConcept="attemptDenyAfterSoftProdVulnerability" /><evidenceAttributes metaConcept="softwareProductVulnerabilityLocalAccessAchieved" /><evidenceAttributes metaConcept="softwareProductVulnerabilityNetworkAccessAchieved" /><evidenceAttributes metaConcept="softwareProductVulnerabilityPhysicalAccessAchieved" /><evidenceAttributes metaConcept="softwareProductVulnerabilityLowPrivilegesAchieved" /><evidenceAttributes metaConcept="softwareProductVulnerabilityHighPrivilegesAchieved" /><evidenceAttributes metaConcept="attemptSoftwareProductAbuse" /><evidenceAttributes metaConcept="softwareProductAbuse" /><evidenceAttributes metaConcept="fullAccessAfterSoftProdVulnerability" /><evidenceAttributes metaConcept="readAfterSoftProdVulnerability" /><evidenceAttributes metaConcept="modifyAfterSoftProdVulnerability" /><evidenceAttributes metaConcept="denyAfterSoftProdVulnerability" /><evidenceAttributes metaConcept="attemptApplicationRespondConnectThroughData" /><evidenceAttributes metaConcept="read" /><evidenceAttributes metaConcept="modify" /><evidenceAttributes metaConcept="deny" /><evidenceAttributes metaConcept="denyFromConnectionRule" /><evidenceAttributes metaConcept="localConnect" /><evidenceAttributes metaConcept="attemptUseVulnerability" /><evidenceAttributes metaConcept="useVulnerability" /></objects><objects description="" id="44777" name="OS" metaConcept="Application" template="false" exportedId="1000000007" attributesJsonString="{&quot;OS&quot;:&quot;Linux&quot;}"><existence type="FixedBoolean"><parameters name="fixed" value="1.0" /></existence><evidenceAttributes metaConcept="networkConnect" /><evidenceAttributes metaConcept="accessNetworkAndConnections" /><evidenceAttributes metaConcept="networkRequestConnect" /><evidenceAttributes metaConcept="networkRespondConnect" /><evidenceAttributes metaConcept="specificAccessFromLocalConnection" /><evidenceAttributes metaConcept="specificAccessFromNetworkConnection" /><evidenceAttributes metaConcept="specificAccess" /><evidenceAttributes metaConcept="attemptLocalConnectVulnOnHost" /><evidenceAttributes metaConcept="authenticate" /><evidenceAttributes metaConcept="specificAccessAuthenticate" /><evidenceAttributes metaConcept="localAccess" /><evidenceAttributes metaConcept="networkAccess" /><evidenceAttributes metaConcept="fullAccess" /><evidenceAttributes metaConcept="physicalAccessAchieved" /><evidenceAttributes metaConcept="attemptFullAccessAfterSoftProdVulnerability" /><evidenceAttributes metaConcept="attemptReadAfterSoftProdVulnerability" /><evidenceAttributes metaConcept="attemptModifyAfterSoftProdVulnerability" /><evidenceAttributes metaConcept="attemptDenyAfterSoftProdVulnerability" /><evidenceAttributes metaConcept="softwareProductVulnerabilityLocalAccessAchieved" /><evidenceAttributes metaConcept="softwareProductVulnerabilityNetworkAccessAchieved" /><evidenceAttributes metaConcept="softwareProductVulnerabilityPhysicalAccessAchieved" /><evidenceAttributes metaConcept="softwareProductVulnerabilityLowPrivilegesAchieved" /><evidenceAttributes metaConcept="softwareProductVulnerabilityHighPrivilegesAchieved" /><evidenceAttributes metaConcept="attemptSoftwareProductAbuse" /><evidenceAttributes metaConcept="softwareProductAbuse" /><evidenceAttributes metaConcept="fullAccessAfterSoftProdVulnerability" /><evidenceAttributes metaConcept="readAfterSoftProdVulnerability" /><evidenceAttributes metaConcept="modifyAfterSoftProdVulnerability" /><evidenceAttributes metaConcept="denyAfterSoftProdVulnerability" /><evidenceAttributes metaConcept="attemptApplicationRespondConnectThroughData" /><evidenceAttributes metaConcept="read" /><evidenceAttributes metaConcept="modify" /><evidenceAttributes metaConcept="deny" /><evidenceAttributes metaConcept="denyFromConnectionRule" /><evidenceAttributes metaConcept="localConnect" /><evidenceAttributes metaConcept="attemptUseVulnerability" /><evidenceAttributes metaConcept="useVulnerability" /></objects><objects description="" id="44256" name="cred2" metaConcept="Credentials" template="false" exportedId="1000000008"><existence type="FixedBoolean"><parameters name="fixed" value="1.0" /></existence><evidenceAttributes metaConcept="useLeakedCredentials" /><evidenceAttributes metaConcept="use" /><evidenceAttributes metaConcept="attemptAccess" /><evidenceAttributes metaConcept="credentialTheft" /></objects><objects description="" id="44140" name="cred1" metaConcept="Credentials" template="false" exportedId="1000000009"><existence type="FixedBoolean"><parameters name="fixed" value="1.0" /></existence><evidenceAttributes metaConcept="useLeakedCredentials" /><evidenceAttributes metaConcept="use" /><evidenceAttributes metaConcept="attemptAccess" /><evidenceAttributes metaConcept="credentialTheft" /></objects><objects description="" id="44288" name="Data" metaConcept="Data" template="false" exportedId="1000000010"><existence type="FixedBoolean"><parameters name="fixed" value="1.0" /></existence><evidenceAttributes metaConcept="compromiseAppOrigin" /><evidenceAttributes metaConcept="attemptAccess" /><evidenceAttributes metaConcept="attemptAccessFromIdentity" /><evidenceAttributes metaConcept="access" /><evidenceAttributes metaConcept="accessUnencryptedData" /><evidenceAttributes metaConcept="accessDecryptedData" /><evidenceAttributes metaConcept="readContainedInformation" /><evidenceAttributes metaConcept="attemptApplicationRespondConnect" /><evidenceAttributes metaConcept="applicationRespondConnect" /><evidenceAttributes metaConcept="attemptRead" /><evidenceAttributes metaConcept="identityAttemptRead" /><evidenceAttributes metaConcept="identityRead" /><evidenceAttributes metaConcept="attemptWrite" /><evidenceAttributes metaConcept="identityAttemptWrite" /><evidenceAttributes metaConcept="identityWrite" /><evidenceAttributes metaConcept="attemptDelete" /><evidenceAttributes metaConcept="identityAttemptDelete" /><evidenceAttributes metaConcept="identityDelete" /><evidenceAttributes metaConcept="read" /><evidenceAttributes metaConcept="write" /><evidenceAttributes metaConcept="delete" /><evidenceAttributes metaConcept="attemptDeny" /><evidenceAttributes metaConcept="deny" /><evidenceAttributes metaConcept="attemptEavesdrop" /><evidenceAttributes metaConcept="attemptManInTheMiddle" /><evidenceAttributes metaConcept="eavesdrop" /><evidenceAttributes metaConcept="manInTheMiddle" /></objects><associations description="" sourceObject="44462" targetObject="45008" id="-1000000000" sourceProperty="lowPrivApps" targetProperty="lowPrivAppIds" /><associations description="" sourceObject="44462" targetObject="44288" id="-1000000001" sourceProperty="deletePrivData" targetProperty="deletingIds" /><associations description="" sourceObject="44214" targetObject="44140" id="-1000000002" sourceProperty="credentials" targetProperty="identities" /><associations description="" sourceObject="44214" targetObject="45008" id="-1000000003" sourceProperty="execPrivApps" targetProperty="executionPrivIds" /><associations description="" sourceObject="44504" targetObject="44256" id="-1000000004" sourceProperty="credentials" targetProperty="identities" /><associations description="" sourceObject="44504" targetObject="45238" id="-1000000005" sourceProperty="execPrivApps" targetProperty="executionPrivIds" /><associations description="" sourceObject="44172" targetObject="44777" id="-1000000006" sourceProperty="highPrivApps" targetProperty="highPrivAppIds" /><associations description="" sourceObject="44172" targetObject="44140" id="-1000000007" sourceProperty="credentials" targetProperty="identities" /><associations description="" sourceObject="44172" targetObject="44546" id="-1000000008" sourceProperty="execPrivApps" targetProperty="executionPrivIds" /></com.foreseeti.kernalCAD:XMIObjectModel>

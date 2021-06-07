@@ -7,6 +7,7 @@ import re
 import sys
 import zipfile
 import xml.etree.ElementTree as ET
+import html
 
 
 def open(file):
@@ -20,7 +21,7 @@ def open(file):
     meta = json.loads(zf.read("meta.json"))
     eom_etree = ET.fromstring(zf.read(basename + ".eom").decode("utf-8"))
     cmx_etree = ET.fromstring(zf.read(basename + ".cmxCanvas").decode("utf-8"))
-
+    
     return {'basename': basename, 'zip': zf, 'meta': meta, 'eom_etree': eom_etree, 'cmx_etree': cmx_etree}
 
 
@@ -187,6 +188,96 @@ def add_attacksteps(scad, attacksteps):
 
     return
 
+def add_object(scad, o):
+    ## ADDS A NEW OBJECT TO THE EOM ##
+
+    obj = ET.SubElement(scad['eom_etree'], 'objects')
+    obj.attrib['description'] = ""
+    obj.attrib['id'] = o['id']
+    obj.attrib['name'] = o['name']
+    obj.attrib['metaConcept'] = o['metaConcept']
+    obj.attrib['template'] = "false"
+    obj.attrib['exportedId'] = o['exportedId']
+    if (o['tag']):
+        for k, v in o['tag'].items():
+            if (k == "name" or k == "id"):
+                continue
+            else:
+                s = f'"{k}":"{v[0]}"'
+                print(s)
+                obj.attrib['attributesJsonString']= "{" + s + "}"
+    
+
+    existence = ET.SubElement(obj, "existence")
+    existence.attrib['type']="FixedBoolean"
+    param = ET.SubElement(existence, "parameters")
+    param.attrib['name'] = "fixed"
+    param.attrib['value'] = "1.0"
+
+def add_association(scad, a):
+    # assoc = {sourceObj: id of sourceProperty: role of targetObj, , }
+    
+    assoc = ET.SubElement(scad['eom_etree'], 'associations')
+    assoc.attrib['description']=""
+    assoc.attrib['sourceObject']= a['sourceId']
+    assoc.attrib['targetObject']= a['targetId']
+    assoc.attrib['id']= a['id']
+    assoc.attrib['sourceProperty']= a['targetRole']
+    assoc.attrib['targetProperty']=a['sourceRole']
+    print(a['targetRole'], a['sourceRole'])
+
+def set_attack_steps(scad):
+    for o in scad['eom_etree'].findall('objects'):
+        for a in scad['eom_etree'].findall('attributeConfigurations'):
+            if (a.get('metaConcept') == o.get('metaConcept')):
+                o.append(a)
+
+def delete_all_objects_and_assocs(scad):
+    
+    for o in scad['eom_etree'].findall('objects'):
+        scad['eom_etree'].remove(o)
+    for a in scad['eom_etree'].findall('associations'):
+        scad['eom_etree'].remove(a)
+    
+    return scad
+def set_unactivated_defense(scad, objId, name):
+    for o in scad['eom_etree'].findall('objects'):
+        if(o.get('id') == objId):
+            #evidenceAttributes- evidenceDistribution- parameters
+            d = ET.SubElement(o, "evidenceAttributes")
+            d.attrib['metaConcept'] = name
+
+            e = ET.SubElement(d, "evidenceDistribution")
+            e.attrib['type'] = "FixedBoolean"
+
+            p = ET.SubElement(e, "parameters")
+            p.attrib['name'] = "fixed"
+
+            o.append(d)
+            
+
+def set_activated_defense(scad, objId, name):
+    for o in scad['eom_etree'].findall('objects'):
+        
+        if(o.get('id') == objId):
+            #evidenceAttributes- evidenceDistribution- parameters
+            d = ET.SubElement(o, "evidenceAttributes")
+            d.attrib['metaConcept'] = name
+
+            e = ET.SubElement(d, "evidenceDistribution")
+            e.attrib['type'] = "FixedBoolean"
+
+            p = ET.SubElement(e, "parameters")
+            p.attrib['name'] = "fixed"
+            p.attrib['value'] = "1.0"
+
+            # defense = ET.SubElement(o, "attributeConfigurations")
+            # defense.attrib['metaConcept'] = name
+            # defValue = ET.SubElement(defense, "defaultValue")
+            # defValue.attrib['type'] = "fixed"
+            # parameters = ET.SubElement(defValue, "parameters")
+            # parameters.attrib['name'] = "fixed"
+            
 
 def _defense_xml(name):
     return f"""<attributeConfigurations metaConcept="{name}">

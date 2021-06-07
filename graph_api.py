@@ -1,17 +1,16 @@
 from gremlin_python.process.graph_traversal import __
 from gremlin_python.process.traversal import P, T
 import networkx as nx
-#import matplotlib.pyplot as plt
+
 ########## Api to change the Instance layer in the data model ##########
-# Public functions: 
-# addObject, validatedAddObject, 
+
 
 ### Structural API ###
 def addNewObject(g, metaConcept, name):
     #find the meta asset
     if( not g.V().hasLabel("root").out("assets").in_("instanceOf").hasLabel(metaConcept).hasNext()):
         # The metaAsset does not exits
-        return []
+        return None
     metaA = g.V().hasLabel("root").out("assets").in_("instanceOf").hasLabel(metaConcept).next()
     if(metaA):
         #Get attack steps from the meta asset
@@ -41,14 +40,20 @@ def addNewObject(g, metaConcept, name):
             #add an defense edge from the instance object to the instance defense
             g.V(obj.id).addE("defense").to(defense).iterate()
         
-        #print("added object...")
+        #
+
         return obj
     else:
         return []
 
-def addNewAssociation(g, obj1, obj2, linkName):
+#Only works for link between assets that are not of the same class
+def addNewAssociation(g, obj1, obj2, linkName, r1 = None):
     metaConceptObj1 = g.V(obj1.id).out("instanceOf").label().next()
     metaConceptObj2 = g.V(obj2.id).out("instanceOf").label().next()
+    #r1 needs to be provided
+    eqObjects = False
+    if(metaConceptObj1 == metaConceptObj2):
+        eqObjects = True
        
     assocs = g.V().hasLabel("root").out("associations").in_("instanceOf").hasLabel(linkName).\
             where(__.or_(__.and_(\
@@ -69,10 +74,14 @@ def addNewAssociation(g, obj1, obj2, linkName):
             valid = False
     
     if(valid):
-        roleAndCardObj1 = g.V(obj1.id).out("instanceOf").out("associations").hasLabel(linkName).project("role", "card").by("role").by("cardinality_begin").next()
-        roleAndCardObj2 = g.V(obj2.id).out("instanceOf").out("associations").hasLabel(linkName).project("role", "card").by("role").by("cardinality_begin").next()
-        #Add edges named after the roles (with a v = 1 to indacate a new change)
-        #check that the assoc does not already exists
+        if(eqObjects):
+            roleAndCardObj1 = g.V(obj1.id).out("instanceOf").out("associations").hasLabel(linkName).has('role', r1).project("role", "card").by("role").by("cardinality_begin").next()
+            roleAndCardObj2 = g.V(obj2.id).out("instanceOf").out("associations").hasLabel(linkName).not_(__.has('role', r1)).project("role", "card").by("role").by("cardinality_begin").next()
+        else:
+            roleAndCardObj1 = g.V(obj1.id).out("instanceOf").out("associations").hasLabel(linkName).project("role", "card").by("role").by("cardinality_begin").next()
+            roleAndCardObj2 = g.V(obj2.id).out("instanceOf").out("associations").hasLabel(linkName).project("role", "card").by("role").by("cardinality_begin").next()
+            #Add edges named after the roles (with a v = 1 to indacate a new change)
+            #check that the assoc does not already exists
         if (g.V(obj1.id).out(roleAndCardObj2["role"]).hasId(obj2.id).hasNext()):
             #Already exits
             print("Trying to add an exitsting association between two objects")
@@ -90,7 +99,8 @@ def removeObject(g, obj):
     #Set the object to 0
     g.V(obj.id).property('v', 0).next()
     #Set all edges from the object 0
-    g.V(obj.id).bothE().where(__.otherV().out("instanceOf").out("instanceOf").hasLabel("assets")).property('v', 0).next()
+    if(g.V(obj.id).bothE().where(__.otherV().out("instanceOf").out("instanceOf").hasLabel("assets")).hasNext()):
+        g.V(obj.id).bothE().where(__.otherV().out("instanceOf").out("instanceOf").hasLabel("assets")).property('v', 0).next()
 #The role of obj2 is needed obj -> obj2
 def removeAssociation(g, obj1, obj2, role2):
     #Check that the association exits
@@ -156,6 +166,8 @@ def validatePatternExchange(g):
         g.V().has('v', 1).properties('v').drop().iterate()
         g.E().has('v', 1).properties('v').drop().iterate()
 
+        return True
+
     else: #Keep the 0:s and remove the 1:s
         print("restore")
         for assoc in newAssocs:
@@ -166,6 +178,8 @@ def validatePatternExchange(g):
         #Drop all the properties with 0:s
         g.V().has('v', 0).properties('v').drop().iterate()
         g.E().has('v', 0).properties('v').drop().iterate()
+
+        return False
 
 def deleteObject(g, o):
     #delete all attackSteps and defenses
@@ -260,30 +274,7 @@ def validateOneAssocForObject(g, o, targetMeta, role, card):
                 print("3")
                 return False
     
-
-
-# Validate if the object can be added in the model involves 
-# 1. checking the DSL layer that the asset exists that the object is an instance of
-def validatedAddObject(g, metaConcept):
-    assetExists = False
-    asset = g.V("root").out("assets").in_("instanceOf").hasLabel(metaConcept).toList()
-    if(asset):
-        #asset exists in the DSL layer
-        assetExists = True
-    return assetExists
     
-## Helper functions ###
-
-#The role is the role of obj2
-def getLinkName(g, obj1, obj2, role2):
-    linkName = g.V(obj2.id).out("instanceOf").out("associations")\
-        .where(__.and_(__.has("role", role2),\
-                       __.out("targetType").hasLabel(g.V(obj1.id).out("instanceOf").label().next()))\
-            )\
-        .label()\
-        .next()
-    return linkName
-
 #creates a new attack step vertex in the instance layer. 
 # Adds 0 as a default value to new attack steps
 def addInstanceAttackStep(g):
@@ -294,28 +285,39 @@ def addInstanceAttackStep(g):
 def addInstanceDefense(g):
     return g.addV().property("active", 0).next()
 
-## API to change properties
+#### API to change properties ####
 
 #Activate a defense if it exits
 def activateDefense(g, obj, defense):
+# g: graph traversal source
+# obj: the object that should have the defense active
+# defense: the name of the defense to activate
     g.V(obj.id).out("defense").where(__.out("instanceOf").hasLabel(defense)).property("active", 1).next()
 
 #deactivate a defense if it exits
 def deactivateDefense(g, obj, defense):
+# g: graph traversal source
+# obj: the object that should have the defense deactivated
+# defense: the name of the defense to deactivate
     g.V(obj.id).out("defense").where(__.out("instanceOf").hasLabel(defense)).property("active", 0).next()
 
 #adds a tag key value pair as a property to an object 
 def addTag(g, obj, tag):
-# g graph traversal source
-# obj the vertex that should include the tag
-# tag {key, val}
+# g: graph traversal source
+# obj: the vertex that should include the tag
+# tag: {key, val}
     for k, v in tag.items():
         g.V(obj.id).property(k,v).next()
 
+#Removes a tag from the objects
 def removeTag(g, obj, tag):
+# g: graph traversal source
+# obj: the vertex that the tag should be removed from
+# tag: {key, val}
     for k, v in tag.items():
         g.V(obj.id).properties(k).drop()
 
+# Sets the TTC values to an attack step to an instance in the model
 def setTTC(g, obj, attackStep, ttc):
 # g graph traversal source
 # obj the vertex that has the attack step
@@ -328,12 +330,43 @@ def setTTC(g, obj, attackStep, ttc):
         property("TTC-95%", ttc["TTC-95%"]).next()
 
 
-## Functions to retrive information ##
+#### Functions to retrive information ####
 
+#Get the name of the association between two objects
+def getLinkName(g, obj1, obj2, role2):
+# g : graph traversal source 
+# obj1: reference to one of the objects in the association
+# obj2: reference to the othe object in the association
+# role2: the role of obj2 in the association
+# returns : the name of the association as a String
+    linkName = g.V(obj2.id).out("instanceOf").out("associations")\
+        .where(__.and_(__.has("role", role2),\
+                       __.out("targetType").hasLabel(g.V(obj1.id).out("instanceOf").label().next()))\
+            )\
+        .label()\
+        .next()
+    return linkName
 
+#get the role of obj 2
 def getRoleInAssociation(g, obj1, obj2):
+# g : graph traversal source
+# obj1 : One of the objects in the association
+# obj2 : The other object in the association
+# returns : the role of obj2 in the association as a string
     role = g.V(obj1.id).outE().where(__.inV().hasId(obj2.id)).label().next()
     return role
+#gets the asset of wich the object is an instance of
+def getMetaConcept(g, obj):
+# g : graph traversal source
+# obj : A reference to the object 
+# returns : the asset of which obj is an instance of as a String
+    #The object is actually an instance of an asset in the model
+    if(g.V(obj.id).out("instanceOf").out("instanceOf").hasLabel("assets").hasNext()):
+        return g.V(obj.id).out("instanceOf").label().next()
+    #not an instance of an asset in the DSL layer
+    else:
+        print("The object provided is not an instance of an asset in the DSL layer")
+        return None
 
 
     
