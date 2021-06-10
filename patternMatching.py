@@ -9,7 +9,7 @@ import scad
 from graphModels import xmlToModel, mal, addAssets, readMALSpec, drop_all, addAssociations
 from graph_api import *
 from patterns import *
-from tests import drawInstanceLevel, example1, ex1P1, runTest
+from tests import drawInstanceLevel, example1, runTest
 
 from proertyGraphToXML import *
 
@@ -133,18 +133,30 @@ if __name__ == "__main__":
     #MAL layer
     mal(g)
     #DSL layer
-    assets, assocs = readMALSpec()
+    url1 = "https://raw.githubusercontent.com/mal-lang/coreLang/master/src/main/mal/coreLang.mal"
+    url2 = "https://raw.githubusercontent.com/mal-lang/coreLang/v0.2.0/src/main/mal/SoftwareVulnerability.mal"
+    url3 = "https://raw.githubusercontent.com/mal-lang/coreLang/v0.2.0/src/main/mal/coreVulnerability.mal"
+    
+    assets, assocs = readMALSpec(url1)
+    addAssets(g, assets)
+    addAssociations(g, assocs)
+
+    assets, assocs = readMALSpec(url2)
+    addAssets(g, assets)
+    addAssociations(g, assocs)
+
+    assets, assocs = readMALSpec(url3)
     addAssets(g, assets)
     addAssociations(g, assocs)
     #instance layer
-    s = xmlToModel(g, './data-models/validationModel.sCAD', './data-models/validationModel.csv')
+    s = xmlToModel(g, './data-models/networkSegmentation.sCAD', './data-models/networkSegmentation.csv')
     #o = g.V().where(__.out("instanceOf").out("instanceOf").hasLabel("assets")).toList()
-    
+    print(g.V().hasLabel("Vulnerability").label().next())
     #ex1P1(g)
     runTest(g)
-    print("-----------")
-    print(g.V().has('name', 'data').out("instanceOf").label().toList())
-    print(g.V().has('name', 'data').out("encryptCreds").out("instanceOf").label().toList())
+    #print("-----------")
+    #print(g.V().has('name', 'data').out("instanceOf").label().toList())
+    #print(g.V().has('name', 'data').out("encryptCreds").out("instanceOf").label().toList())
     
     convertPropertyGraphToSecuriCAD(g, s)
 

@@ -54,7 +54,7 @@ def addAssociationsToEOM(g,s):
                         .select("sourceId", "targetId").toList()
         
         for a in assocs:
-            print(g.V(a["sourceId"]).properties('name').next(), g.V(a["targetId"]).properties('name').next())
+            #print(g.V(a["sourceId"]).properties('name').next(), g.V(a["targetId"]).properties('name').next())
             if(assocExits(s, a["sourceId"], a["targetId"])):
                 continue
             else:

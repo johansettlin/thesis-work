@@ -45,47 +45,59 @@ def example1(g):
 
 #Filter Exchange Patterns
 def missingAssoc(g):
-    bp = g.V()\
-        .match(__.as_("apps").where(__.out("instanceOf").hasLabel("Application")),\
-        __.as_("apps").where(__.not_(__.out().out("instanceOf").hasLabel("Application"))))\
+    ### ANTI-PATTERN ###
+    antiPattern = g.V()\
+        .match(\
+            __.as_("apps")\
+            .where(\
+                __.out("instanceOf")\
+                .hasLabel("Application")),\
+
+        __.as_("apps")\
+        .where(\
+            __.not_(\
+                __.out()\
+                .out("instanceOf")\
+                .hasLabel("Application"))))\
         .select("apps").toList()
     
-    
-    for p in bp:
-        print("The name of the found app: ")
-        print(g.V(p.id).properties('name').next())
+    ### REWRITE PATTERN ###
+    for p in antiPattern:
+       #STRUCTURAL CHANGES
         o = addNewObject(g, "Application", "newApp")
         addNewAssociation(g, p, o, "AppExecution", "hostApp")
+        #VALIDATE CHANGES
         validatePatternExchange(g)
+        #CHANGE PROPERTIES
         addTag(g, o, {"IDS": "ids"})
 
 def unwantedObject(g):
-
-    #print(g.V().has('name', 'id1').out("defense").has('active', 1).out("instanceOf").label().toList())
-    bp = g.V().match(\
+   ### ANTI-PATTERN ###
+    antiPattern = g.V().match(\
                 __.as_("id").where(\
                     __.out("instanceOf")\
                     .hasLabel("Identity")),\
                 
                 __.as_("id").where(\
                     __.not_(\
-                    __.out()\
-                    .out("instanceOf").\
-                    hasLabel("Data"))),\
+                        __.out()\
+                        .out("instanceOf").\
+                        hasLabel("Data"))),\
                 
                 __.as_("id").where(\
                     __.out("defense")\
-                        .where(__.and_(\
-                            __.out("instanceOf")\
-                            .hasLabel("twoFactorAuthentication"),\
+                        .where(\
+                            __.and_(\
+                                __.out("instanceOf")\
+                                .hasLabel("twoFactorAuthentication"),\
                         
-                            __.has('active', 1)\
+                                __.has('active', 0)\
                             ))\
                         ))\
             .select("id").toList()
     
-     ### REWRITE PATTERN ###
-    for p in bp:
+    ### REWRITE PATTERN ###
+    for p in antiPattern:
         #STRUCTURAL CHANGES
         removeObject(g, p)
         #VALIDATE CHANGES
@@ -160,18 +172,23 @@ def removeUnwantedObject(g):
 
 def duplicateObject(g):
     ### BAD PATTERN ###
-    bp = g.V().match(\
+    antiPattern = g.V().match(\
                 __.as_("data")\
                 .where(\
-                    __.out("instanceOf").hasLabel("Data")),\
+                    __.out("instanceOf")\
+                    .hasLabel("Data")),\
                 
                 __.as_("data")\
                 .where(\
-                    __.out().out("instanceOf").hasLabel("Identity")),\
+                    __.out()\
+                    .out("instanceOf")\
+                    .hasLabel("Identity")),\
                 
                 __.as_("data")\
                 .where(\
-                    __.out().out("instanceOf").hasLabel("Credentials")),\
+                    __.out()\
+                    .out("instanceOf")\
+                    .hasLabel("Credentials")),\
                 
                 __.as_("data")\
                 .out()\
@@ -189,14 +206,13 @@ def duplicateObject(g):
                 .fold()\
                 .as_("creds")\
             )\
-            .select("data", "ids", "creds").toList()
-    #print(bp)
+        .select("data", "ids", "creds").toList()
 
-     ### REWRITE PATTERN ###
-    for p in bp:
-        print("----- P ------")
-        print(g.V(p['data'].id).properties('name').next())
+
+    ### REWRITE PATTERN ###
+    for p in antiPattern:
         #STRUCTURAL CHANGES
+        removeObject(g, p['data'])
         o = addNewObject(g, "Data", "NewData")
         #add same associations to the new object
         for i in p['ids']:
@@ -215,11 +231,17 @@ def duplicateObject(g):
         validatePatternExchange(g)
         #CHANGE PROPERTIES
 
+
+
 ###### Structural Exchange Patterns ######
-def dataToApplication(g):
-    # DAta -> App
-    # add system to data
-    #maybe change assoc to app or something
+def twoObjects(g):
+    bp = g.V().match(\
+                    __.as_("app")\
+                    .where(\
+                        __.out("instanceOf")\
+                        .hasLabel("Credentials")),\
+                    
+                    )
     return
 def updateInBetween(g):
     ### BAD PATTERN ###
@@ -260,29 +282,29 @@ def updateInBetween(g):
             activateDefense(g, data, "authenticated")
 
 def twoConnectedWithFilters(g):
-    ### BAD PATTERN ###
-    bp = g.V().match(\
-                __.as_("cred")\
+    ### ANTI-PATTERN ###
+    antiPattern = g.V().match(\
+                __.as_("app")\
                 .where(\
                     __.out("instanceOf")\
-                    .hasLabel("Credentials")),\
+                    .hasLabel("Application")),\
                 
                 __.as_("id")\
                 .where(\
                     __.out("instanceOf")\
                     .hasLabel("Identity")),\
                     
-                __.as_("cred")\
-                .out("identities")\
+                __.as_("app")\
+                .out()\
                 .as_("id"),\
                 
-                __.as_("cred")\
+                __.as_("app")\
                 .where(\
                     __.out("defense")\
                     .where(\
                     __.and_(\
                         __.out("instanceOf").\
-                        hasLabel("notDisclosed"),\
+                        hasLabel("disabled"),\
                  
                         __.has("active", 0)))),\
                 
@@ -297,34 +319,95 @@ def twoConnectedWithFilters(g):
                     .is_(P.gte(2))\
                 ),\
                     
-                __.not_(\
-                    __.as_("cred")\
-                    .out()\
-                    .where(\
-                        __.out("instanceOf")\
-                        .hasLabel("Data")\
-                        .out()\
-                        .as_("id")\
-                    )))\
-        .select("cred", "id").by('name').by('name').toList()
+                __.as_("app")\
+                .where(\
+                    __.out()\
+                    .out("instanceOf")\
+                    .hasLabel("System")\
+                ))\
+        .select("app", "id").toList()
     
     ### REWRITE PATTERN ###
-    for p in bp:
+    for p in antiPattern:
         #STRUCTURAL CHANGES
-        removeAssociation(g, p['cred'], p['id'], "identities")
-        data = addNewObject(g, "Data", "data")
-        addNewAssociation(g, p['cred'], data, "EncryptionCredentials")
-        addNewAssociation(g, data, p['id'], "ReadPrivileges")
+        o = addNewObject(g, "System", "newSystem")
+        addNewAssociation(g, p["app"], o, "SysExecution")
+
         #VALIDATE CHANGES
         success = validatePatternExchange(g)
         #CHANGE PROPERTIES
-        if(success):
-            activateDefense(g, data, "authenticated")
+       
 
 
 def threeConnectedInARow(g):
     ### BAD PATTERN ###
+    antiPattern = g.V().match(\
+                __.as_("nw")\
+                .where(\
+                    __.out("instanceOf")\
+                    .hasLabel("Network")),\
+                
+                __.as_("fw")\
+                .where(\
+                    __.out("instanceOf")\
+                    .hasLabel("RoutingFirewall")),\
+                
+                __.as_("system")\
+                .where(\
+                    __.out("instanceOf")\
+                    .hasLabel("System")),\
+                
+                __.as_("nw")\
+                .out()\
+                .as_("fw"),
+                
+                __.as_("fw")\
+                .out()\
+                .as_("system"),\
+
+                __.as_("nw")\
+                .where(\
+                    __.not_(\
+                        __.out\
+                        .out("instanceOf")\
+                        .hasLabel("Application"))))\
+            .select('nw', 'fw', 'system')\
+            .toList()
+
+    ### REWRITE PATTERN ###
+    for p in antiPattern:
+        #STRUCTURAL CHANGES
+        o = addNewObject(g, "Application", "newApp")
+        addNewAssociation(g, p['nw'], o, "NetworkExposure")
+        addNewAssociation(g, p['system'], o, "SysExecution")
+        #VALIDATE CHANGES
+        success = validatePatternExchange(g)
+        #CHANGE PROPERTIES
+           
+def twoOfSameKind(g):
+
+    antiPattern = g.V().match(\
+        )
+
+    ### REWRITE PATTERN ###
+    for p in antiPattern:
+        #STRUCTURAL CHANGES
+        o = addNewObject(g, "Application", "newApp")
+        addNewAssociation(g, p['nw'], o, "NetworkExposure")
+        addNewAssociation(g, p['system'], o, "SysExecution")
+        #VALIDATE CHANGES
+        success = validatePatternExchange(g)
+        #CHANGE PROPERTIES
+
+
+##### Complex Exchange PAtterns #####
+def smalLoop(g):
     bp = g.V().match(\
+                __.as_("system")\
+                .where(\
+                    __.out("instanceOf")\
+                    .hasLabel("System")),\
+                
                 __.as_("app")\
                 .where(\
                     __.out("instanceOf")\
@@ -334,49 +417,82 @@ def threeConnectedInARow(g):
                 .where(\
                     __.out("instanceOf")\
                     .hasLabel("Identity")),\
-                
-                __.as_("cred")\
-                .where(\
-                    __.out("instanceOf")\
-                    .hasLabel("Credentials")),\
+
+                __.as_("system")\
+                .out()\
+                .as_("app"),\
                 
                 __.as_("app")\
                 .out()\
-                .as_("id"),
+                .as_("id"),\
+
+                __.as_("system")\
+                .out()\
+                .as_("id"),\
+        )
+
+#def bigLoop(g):
+
+def star(g):
+    bp = g.V().match(\
+                __.as_("system")\
+                .where(\
+                    __.out("instanceOf")\
+                    .hasLabel("System")),\
+                
+                __.as_("data")\
+                .where(\
+                    __.out("instanceOf")\
+                    .hasLabel("Data")),\
+                
+                __.as_("firewall")\
+                .where(\
+                    __.out("instanceOf")\
+                    .hasLabel("RoutingFirewall")),\
                 
                 __.as_("id")\
-                .out()\
-                .as_("cred"))\
-            .select('app', 'id', 'cred')\
-            .toList()
+                .where(\
+                    __.out("instanceOf")\
+                    .hasLabel("Identity")),\
 
-    ### REWRITE PATTERN ###
+                __.as_("app")\
+                .where(\
+                    __.out("instanceOf")\
+                    .hasLabel("Application")),\
+                
+
+                __.as_("system")\
+                .out()\
+                .as_("id"),\
+
+                __.as_("system")\
+                .out()\
+                .as_("data"),\
+                
+                __.as_("system")\
+                .out()\
+                .as_("firewall"),\
+
+                __.as_("system")\
+                .out()\
+                .as_("app")\
+            )\
+            .select("system", "data", "firewall", "id", "app")\
+            .toList()
+     ### REWRITE PATTERN ###
     for p in bp:
         #STRUCTURAL CHANGES
+        #Should not work
         obj = addNewObject(g, "Data", "newData")
-        role = getRoleInAssociation(g, p['app'], p['id'])
-        removeAssociation(g, p['app'], p['id'], role)
-        addNewAssociation(g, p['app'], obj, "AppContainment")
-        addNewAssociation(g, p['cred'], obj, "EncryptionCredentials")
-        addNewAssociation(g, p['id'], obj, "DeletePrivileges")
+        addNewAssociation(g, p['system'], obj, "DataHosting")
         #VALIDATE CHANGES
         success = validatePatternExchange(g)
         if(success):
-            addTag(g, obj, {'new': 'tag'})
-
-
+        #CHANGE PROPERTIES
+            activateDefense(g, obj, "authenticated")
+#def longPattern(g):
         
-##### Complex Exchange PAtterns #####
-def smalLoop(g):
-    bp = g.V()
-
-def bigLoop(g):
-
-def star(g):
-
-def longPattern(g):
-        
-def ex1P1(g):
+#def ex1P1(g):
        
     # #Every Identity that is connected to 2 or more application
     # x = g.V().match(\
@@ -496,11 +612,122 @@ def ex1P1(g):
     #     print("Properties of the application: ",g.V(a.id).properties().toList())
     #     print("Properties of the defense: ",g.V(a.id).out("defense").where(__.out("instanceOf").hasLabel("disabled")).properties().toList())
 
+def networkSegmentation1(g):
+    #print(g.V().has('name', "nw1").out().where(__.out("instanceOf").hasLabel("Application").where(__.out())))
+    antiPattern = g.V().match(\
+                            __.as_("nw")\
+                            .where(\
+                                __.out("instanceOf")\
+                                .hasLabel("Network")),\
+                            
+                            __.as_("nw")\
+                            .out()
+                            .where(\
+                                __.out("instanceOf")\
+                                .hasLabel("Application"))\
+                            .where(\
+                                __.out()\
+                                .where(\
+                                    __.out("instanceOf")\
+                                    .hasLabel("System"))\
+                                .where(\
+                                    __.out()\
+                                    .where(
+                                        __.out("instanceOf")\
+                                        .hasLabel("Data"))\
+                                    .has('confidential', 'true')))\
+                            .fold()\
+                            .as_("confidentialComputers")\
+                        )\
+                    .select('nw', 'confidentialComputers')\
+                    .toList()
+    print(antiPattern)
+    ### REWRITE PATTERN ###
+    for p in antiPattern:
+        #STRUCTURAL CHANGES
+        #make sure that there is confidential data on the computer
+        if(p['confidentialComputers']):
+            newNw = addNewObject(g, "Network", "nw2")
+            fw = addNewObject(g, "Application", "fw1")
+            addNewAssociation(g, p['nw'], fw, "NetworkExposure")
+            addNewAssociation(g, newNw, fw, "NetworkExposure")
+            for app in p['confidentialComputers']:
+                role = getRoleInAssociation(g, app, p['nw'])
+                removeAssociation(g, app, p['nw'], role)
+                addNewAssociation(g, app, newNw, "NetworkExposure")
+
+        #VALIDATE CHANGES
+        success = validatePatternExchange(g)
+        
+        #CHANGE PROPERTIES
+        
+def networkSegmentation2(g):
+    antiPattern = g.V().match(\
+                            __.as_("nw")\
+                            .where(\
+                                __.out("instanceOf")\
+                                .hasLabel("Network")),\
+                                    
+                            __.as_("app")\
+                            .where(\
+                                __.out("instanceOf")\
+                                .hasLabel("Application")),\
+                            
+                            __.as_("sys")\
+                            .where(\
+                                __.out("instanceOf")\
+                                .hasLabel("System")),\
+
+                            __.as_("data")\
+                            .where(\
+                                __.out("instanceOf")\
+                                .hasLabel("Data")),\
+                            
+                            __.as_("nw")\
+                            .out()\
+                            .as_("app"),
+
+                            __.as_("app")\
+                            .out()\
+                            .as_("sys"),
+
+                             __.as_("sys")\
+                            .out()\
+                            .as_("data"),
+
+                            __.as_("data")\
+                            .has('confidential', 'true')\
+                        )\
+                    .select("nw", "app", "sys", "data")\
+                    .toList()
+    ### REWRITE PATTERN ###
+    counter = 1
+    for p in antiPattern:
+        name1 = "newNetwork" + str(counter)
+        name2 = "newFirewall" + str(counter)
+        #STRUCTURAL CHANGES
+        nw = addNewObject(g, "Network", name)
+        role = getRoleInAssociation(g, p['nw'], p['app'])
+        removeAssociation(g, p['nw'], p['app'], role)
+        fw = addNewObject(g, "Application", name2)
+        addNewAssociation(g, nw, fw, "NetworkExposure")
+        addNewAssociation(g, nw, p['app'], "NetworkExposure")
+
+        #VALIDATE CHANGES
+        success = validatePatternExchange(g)
+        #CHANGE PROPERTIES
+        if(success):
+            counter += 1
+        
+        
+
 def runTest(g):
-    threeConnectedInARow(g)
+    #threeConnectedInARow(g)
     #print(g.V().where(__.out("instanceOf").hasLabel("Application")).fold().toList())
     #updateInBetween(g)
     #twoConnectedWithFilters(g)
     #duplicateObject(g)
     #unwantedObject(g)
     #missingAssoc(g)
+    #networkSegmentation1(g)
+    networkSegmentation2(g)
