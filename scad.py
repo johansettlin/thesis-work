@@ -204,7 +204,7 @@ def add_object(scad, o):
                 continue
             else:
                 s = f'"{k}":"{v[0]}"'
-                print(s)
+                #print(s)
                 obj.attrib['attributesJsonString']= "{" + s + "}"
     
 

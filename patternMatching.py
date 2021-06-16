@@ -203,12 +203,12 @@ if __name__ == "__main__":
 
 
     runTest(g)
-   
-    print( "The program ha now finished")
+    convertPropertyGraphToSecuriCAD(g, s)
+    print( "The program has now finished")
 
     connection.close()
     
-    #convertPropertyGraphToSecuriCAD(g, s)
+    
 
     
     

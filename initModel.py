@@ -1,3 +1,4 @@
+import sys
 from gremlin_python import statics
 from gremlin_python.structure.graph import Graph
 from gremlin_python.process.anonymous_traversal import traversal
@@ -7,7 +8,9 @@ from gremlin_python.driver.driver_remote_connection import DriverRemoteConnectio
 from graphModels import xmlToModel, mal, addAssets, readMALSpec, drop_all, addAssociations
 
 if __name__ == "__main__":
+    #Graph Traversal Source
     g = traversal().withRemote(DriverRemoteConnection('ws://localhost:8182/gremlin', 'g'))
+    #Reset the database
     drop_all(g)
     #MAL layer
     mal(g)
