@@ -1,0 +1,2 @@
+def testAddObject(g):
+    return

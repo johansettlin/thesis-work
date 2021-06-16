@@ -612,35 +612,41 @@ def star(g):
     #     print("Properties of the application: ",g.V(a.id).properties().toList())
     #     print("Properties of the defense: ",g.V(a.id).out("defense").where(__.out("instanceOf").hasLabel("disabled")).properties().toList())
 
+#Add that it has unclassified data aswell??
 def networkSegmentation1(g):
     #print(g.V().has('name', "nw1").out().where(__.out("instanceOf").hasLabel("Application").where(__.out())))
-    antiPattern = g.V().match(\
-                            __.as_("nw")\
-                            .where(\
-                                __.out("instanceOf")\
-                                .hasLabel("Network")),\
+    antiPattern = g.V()\
+        .match(\
+            __.as_("nw")\
+            .where(\
+                __.out("instanceOf")\
+                .hasLabel("Network")),\
                             
-                            __.as_("nw")\
-                            .out()
-                            .where(\
-                                __.out("instanceOf")\
-                                .hasLabel("Application"))\
-                            .where(\
-                                __.out()\
-                                .where(\
-                                    __.out("instanceOf")\
-                                    .hasLabel("System"))\
-                                .where(\
-                                    __.out()\
-                                    .where(
-                                        __.out("instanceOf")\
-                                        .hasLabel("Data"))\
-                                    .has('confidential', 'true')))\
-                            .fold()\
-                            .as_("confidentialComputers")\
-                        )\
-                    .select('nw', 'confidentialComputers')\
-                    .toList()
+            __.as_("nw")\
+            .out()
+            .where(\
+                __.out("instanceOf")\
+                .hasLabel("Application"))\
+            .has('type', 'Operating System')\
+            .where(\
+                __.out()\
+                .where(\
+                    __.out("instanceOf")\
+                    .hasLabel("Application"))\
+                .has('type', 'Software Application')\
+                .where(\
+                    __.out()\
+                    .where(
+                        __.out("instanceOf")\
+                        .hasLabel("Data"))\
+                    .has('type', 'Classified')\
+                )\
+            )\
+            .fold()\
+            .as_("confidentialComputers")\
+        )\
+        .select('nw', 'confidentialComputers')\
+        .toList()
     print(antiPattern)
     ### REWRITE PATTERN ###
     for p in antiPattern:
@@ -648,13 +654,13 @@ def networkSegmentation1(g):
         #make sure that there is confidential data on the computer
         if(p['confidentialComputers']):
             newNw = addNewObject(g, "Network", "nw2")
-            fw = addNewObject(g, "Application", "fw1")
-            addNewAssociation(g, p['nw'], fw, "NetworkExposure")
-            addNewAssociation(g, newNw, fw, "NetworkExposure")
+            fw = addNewObject(g, "RoutingFirewall", "newFirewall")
+            addNewAssociation(g, p['nw'], fw, "NetworkExposure", "networks")
+            addNewAssociation(g, newNw, fw, "NetworkExposure", "networks")
             for app in p['confidentialComputers']:
                 role = getRoleInAssociation(g, app, p['nw'])
                 removeAssociation(g, app, p['nw'], role)
-                addNewAssociation(g, app, newNw, "NetworkExposure")
+                addNewAssociation(g, app, newNw, "NetworkExposure", "applications")
 
         #VALIDATE CHANGES
         success = validatePatternExchange(g)
@@ -668,37 +674,43 @@ def networkSegmentation2(g):
                                 __.out("instanceOf")\
                                 .hasLabel("Network")),\
                                     
-                            __.as_("app")\
+                            __.as_("os")\
                             .where(\
                                 __.out("instanceOf")\
                                 .hasLabel("Application")),\
                             
-                            __.as_("sys")\
+                            __.as_("app")\
                             .where(\
                                 __.out("instanceOf")\
-                                .hasLabel("System")),\
+                                .hasLabel("Application")),\
 
-                            __.as_("data")\
+                            __.as_("classifiedData")\
                             .where(\
                                 __.out("instanceOf")\
                                 .hasLabel("Data")),\
                             
                             __.as_("nw")\
                             .out()\
+                            .as_("os"),
+
+                            __.as_("os")\
+                            .out()\
                             .as_("app"),
 
+                             __.as_("app")\
+                            .out()\
+                            .as_("classifiedData"),
+
+                            __.as_("classifiedData")\
+                            .has('type', 'Classified'),\
+                            
                             __.as_("app")\
-                            .out()\
-                            .as_("sys"),
-
-                             __.as_("sys")\
-                            .out()\
-                            .as_("data"),
-
-                            __.as_("data")\
-                            .has('confidential', 'true')\
+                            .has('type', 'Software Application'),\
+                            
+                            __.as_("os")\
+                            .has('type', 'Operating System')\
                         )\
-                    .select("nw", "app", "sys", "data")\
+                    .select("nw", "os", "app", "classifiedData")\
                     .toList()
     ### REWRITE PATTERN ###
     counter = 1
@@ -706,8 +718,8 @@ def networkSegmentation2(g):
         name1 = "newNetwork" + str(counter)
         name2 = "newFirewall" + str(counter)
         #STRUCTURAL CHANGES
-        nw = addNewObject(g, "Network", name)
-        role = getRoleInAssociation(g, p['nw'], p['app'])
+        nw = addNewObject(g, "Network", name1)
+        role = getRoleInAssociation(g, p['nw'], p['os'])
         removeAssociation(g, p['nw'], p['app'], role)
         fw = addNewObject(g, "Application", name2)
         addNewAssociation(g, nw, fw, "NetworkExposure")
@@ -729,5 +741,5 @@ def runTest(g):
     #duplicateObject(g)
     #unwantedObject(g)
     #missingAssoc(g)
-    #networkSegmentation1(g)
-    networkSegmentation2(g)
+    networkSegmentation1(g)
+    #networkSegmentation2(g)

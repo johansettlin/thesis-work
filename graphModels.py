@@ -82,7 +82,7 @@ def readMALSpec(url):
     asso = False
     assocs = []
     assets = []
-    currentAsset = {"name": "", "attackSteps":[], "defenses": []}
+    currentAsset = {"name": "", "attackSteps":[], "defenses": [], "extends": "", "abstract": False}
    
     for line in content:
         words = line.split()
@@ -91,20 +91,34 @@ def readMALSpec(url):
                 if(words[0] == "asset"):
                     if(currentAsset["name"] != ""):
                         assets.append(currentAsset)
-                        currentAsset = {"name": "", "attackSteps":[], "defenses": []}
-                    currentAsset["name"] = words[1]
+                        #the asset extends another asset
+                    if(len(words) >= 4 and words[2] == "extends"):
+                        currentAsset = {"name": "", "attackSteps":[], "defenses": [], "extends": "", "abstract": False}
+                        currentAsset["name"] = words[1]
+                        print(words[1], " extends ", words[3])
+                        currentAsset['extends'] = words[3]
+                    else:
+                        currentAsset = {"name": "", "attackSteps":[], "defenses": [], "extends": "", "abstract": False}
+                        currentAsset["name"] = words[1]
+                        
+                    
                     
                     ## Create a new asset
                 if(words[1] == "asset"):
                     if(currentAsset["name"] != ""):
                         assets.append(currentAsset)
-                        currentAsset = {"name": "", "attackSteps":[], "defenses": []}
+                        currentAsset = {"name": "", "attackSteps":[], "defenses": [], "extends": "", "abstract": False}
                         
                     currentAsset["name"] = words[2]
                     
+                    if(words[0] == "abstract"):
+                        print("asset ", words[2], " is abstarct")
+                        currentAsset["abstract"] = True
+                    
                 
-                #All defnses and attack steps until a new asset is 
+                #All defenses and attack steps until a new asset is 
                 # present belongs to the prev asset
+                # Needs more functionality for E, !E, @hidden etc..
 
                 if(words[0] == "|"): #Attack step of type OR
                     currentAsset["attackSteps"].append({"name": words[1], "type": "OR"})
@@ -148,35 +162,56 @@ def readMALSpec(url):
 
 #Adds an assets in the DSL layer
 def addAssets(g, assets):
-    for asset in assets:
-        #create the asset with the name as label
-        a = g.addV(asset["name"]).next()
-       
-        #The asset is an instance of the asset node in the MAL layer
-        g.V(a.id).addE("instanceOf").to(g.V().hasLabel("root").out("assets")).iterate()
-        #Add defenses
-        addDefenses(g, a, asset["defenses"])
-        #Add attack steps
-        addAttackSteps(g, a, asset["attackSteps"])
+    #Create all the assets
+    for x in assets:
+        for asset in x:
+            #create the asset with the name as label
+            a = g.addV(asset["name"]).next()
+            rootA = g.V().hasLabel("root").out("assets").next()
+            #The asset is an instance of the asset node in the MAL layer
+            g.V(a.id).addE("instanceOf").to(rootA).iterate()
+            #Add defenses
+            addDefenses(g, a, asset["defenses"])
+            #Add attack steps
+            addAttackSteps(g, a, asset["attackSteps"])
+        
+    #Add functionality for extends and abtract type assets
+    for x in assets:
+        for asset in x:
+            #check if the asset extends another asset
+            if(asset['extends'] != ""):
+                a = g.V().hasLabel(asset['name']).next()
+                #print("a", a.id)
+                extendedAsset = g.V().hasLabel(asset['extends']).next()
+                #print("ea", extendedAsset.id)
+                #add an extends edgen between the assets
+                g.V(a.id).addE("extends").to(extendedAsset).iterate()
+            #check if the asset is abstarct
+            if(asset['abstract']):
+                g.V().hasLabel(asset['name']).property('type', 'abstract').next()
 
 
 def addAssociations(g, assocs):
-    for a in assocs:
-        role1 = a['role1'].strip("[]")
-        role2 = a['role2'].strip("[]")
-        #add two new assocs vertices containing information about both sides
-        a1 = g.addV(a["linkName"]).property("role", role1).property("cardinality_begin", a["cardinality1"]).next()
-        a2 = g.addV(a["linkName"]).property("role", role2).property("cardinality_begin", a["cardinality2"]).next()
+    for x in assocs:
+        for a in x:
+            role1 = a['role1'].strip("[]")
+            role2 = a['role2'].strip("[]")
+            #add two new assocs vertices containing information about both sides
+            a1 = g.addV(a["linkName"]).property("role", role1).property("cardinality_begin", a["cardinality1"]).next()
+            a2 = g.addV(a["linkName"]).property("role", role2).property("cardinality_begin", a["cardinality2"]).next()
 
-        #add instanceOf edges to associations in the MAL Layer
-        g.V(a1.id).addE("instanceOf").to(g.V().hasLabel("root").out("associations")).iterate()
-        g.V(a2.id).addE("instanceOf").to(g.V().hasLabel("root").out("associations")).iterate()
-        #Add association edges from the asset to its role and target edges
-        g.V().hasLabel(a["asset1"]).addE("associations").to(a1).iterate()
-        g.V().hasLabel(a["asset2"]).addE("associations").to(a2).iterate()
+            #add instanceOf edges to associations in the MAL Layer
+            rootAs = g.V().hasLabel("root").out("associations").next()
+            g.V(a1.id).addE("instanceOf").to(rootAs).iterate()
+            g.V(a2.id).addE("instanceOf").to(rootAs).iterate()
+            #Add association edges from the asset to its role and target edges
+            g.V().hasLabel(a["asset1"]).addE("associations").to(a1).iterate()
+            g.V().hasLabel(a["asset2"]).addE("associations").to(a2).iterate()
 
-        g.V(a1.id).addE("targetType").to(g.V().hasLabel(a["asset2"])).iterate()
-        g.V(a2.id).addE("targetType").to(g.V().hasLabel(a["asset1"])).iterate()
+            asset2 = g.V().hasLabel(a["asset2"]).next()
+            g.V(a1.id).addE("targetType").to(asset2).iterate()
+            asset1 = g.V().hasLabel(a["asset1"]).next()
+            g.V(a2.id).addE("targetType").to(asset1).iterate()
 
 # Adds defenses to an asset in DSL layer
 def addDefenses(g, asset, defenses): 
@@ -200,7 +235,8 @@ def addAttackSteps(g, asset, attackSteps):
 # attackSteps : list of dictionaries {"name" : "nameOfAttackStep", "type": "type"}
     for step in attackSteps:
         a = g.addV(step["name"]).property("type", step["type"]).next()
-        g.V(a.id).addE("instanceOf").to(g.V().hasLabel("root").out("attackSteps")).iterate()
+        rootAt = g.V().hasLabel("root").out("attackSteps").next()
+        g.V(a.id).addE("instanceOf").to(rootAt).iterate()
         g.V(asset.id).addE("attackSteps").to(a).iterate()
 
 
@@ -256,14 +292,16 @@ def addInstanceDefenses(g, vertex, oid, metaConcept, file):
             #The instance object has an edge to the defense
             g.V(vertex.id).addE("defense").to(d).iterate()
             #The defense is an instance of a defence in the DSL layer
-            g.V(d.id).addE("instanceOf").to(g.V(defense['id'])).iterate()
+            metaD = g.V(defense['id']).next()
+            g.V(d.id).addE("instanceOf").to(metaD).iterate()
         else:
             #create an inactive defense vertex
             d = g.addV().property('active', 0).next()
             #The instance object has an edge to the defense
             g.V(vertex.id).addE("defense").to(d).iterate()
             #The defense is an instance of a defence in the DSL layer
-            g.V(d.id).addE("instanceOf").to(g.V(defense['id'])).iterate()
+            mD = g.V(defense['id']).next()
+            g.V(d.id).addE("instanceOf").to(mD).iterate()
 
 # Gets the TTC value for an attack step, if there is none return 0
 def getTTC(oid, name, attackStep, simulation):
@@ -290,7 +328,8 @@ def addInstanceAttackSteps(g, vertex, metaConcept, oid , name , simulation):
         #add an edge between the object and the attack step
         g.V(vertex.id).addE("attackStep").to(aStep).next()
         #the attack step is an instance of the attack step in the DSL layer
-        g.V(aStep.id).addE("instanceOf").to(g.V(attackStep['id'])).iterate()
+        attackStep = g.V(attackStep['id']).next()
+        g.V(aStep.id).addE("instanceOf").to(attackStep).iterate()
 
 def xmlToModel(g, file, csv):
     eom = scad.open(file)
@@ -307,7 +346,8 @@ def xmlToModel(g, file, csv):
                     g.V(vertex.id).property(k,v).next()
                 
             #the object vertex is an instance of a DSL asset
-            g.V(vertex.id).addE("instanceOf").to(g.V().hasLabel("root").out("assets").in_("instanceOf").hasLabel(o['metaConcept'])).iterate()
+            metaAs = g.V().hasLabel("root").out("assets").in_("instanceOf").hasLabel(o['metaConcept']).next()
+            g.V(vertex.id).addE("instanceOf").to(metaAs).iterate()
 
             addInstanceAttackSteps(g, vertex, o['metaConcept'], o['exportedId'], o['name'] , simulation)
             addInstanceDefenses(g, vertex, o['id'], o['metaConcept'], file)
@@ -316,8 +356,10 @@ def xmlToModel(g, file, csv):
     for a in assets['assocs']:
         if( '.attacker' not in a['targetProperty'] ):
             #getLinkName(g.V().has('id', a['sourceObject']), a['targetProperty'], a['sourceProperty'])
-            g.V().has('id', a['sourceObject']).addE(a['sourceProperty']).to(g.V().has('id', a['targetObject'])).iterate()
-            g.V().has('id', a['targetObject']).addE(a['targetProperty']).to(g.V().has('id', a['sourceObject'])).iterate()
+            target = g.V().has('id', a['targetObject']).next()
+            g.V().has('id', a['sourceObject']).addE(a['sourceProperty']).to(target).iterate()
+            source = g.V().has('id', a['sourceObject']).next()
+            g.V().has('id', a['targetObject']).addE(a['targetProperty']).to(source).iterate()
     return eom
 def addVertex(g, className, name, defenses): 
     #Need to check rules in the MAL language

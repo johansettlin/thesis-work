@@ -224,7 +224,7 @@ def add_association(scad, a):
     assoc.attrib['id']= a['id']
     assoc.attrib['sourceProperty']= a['targetRole']
     assoc.attrib['targetProperty']=a['sourceRole']
-    print(a['targetRole'], a['sourceRole'])
+    #print(a['targetRole'], a['sourceRole'])
 
 def set_attack_steps(scad):
     for o in scad['eom_etree'].findall('objects'):

@@ -126,39 +126,89 @@ def test(g):
     ap =passwordReuseAP(g)
 
 if __name__ == "__main__":
-    
-    g = traversal().withRemote(DriverRemoteConnection('ws://localhost:8182/gremlin', 'g'))
+    connection = DriverRemoteConnection('ws://localhost:8182/gremlin', 'g')
+    g = traversal().withRemote(connection)
 
     drop_all(g)
     #MAL layer
+
     mal(g)
+    
     #DSL layer
     url1 = "https://raw.githubusercontent.com/mal-lang/coreLang/master/src/main/mal/coreLang.mal"
     url2 = "https://raw.githubusercontent.com/mal-lang/coreLang/v0.2.0/src/main/mal/SoftwareVulnerability.mal"
     url3 = "https://raw.githubusercontent.com/mal-lang/coreLang/v0.2.0/src/main/mal/coreVulnerability.mal"
     
+    asse = []
+    asso = []
     assets, assocs = readMALSpec(url1)
-    addAssets(g, assets)
-    addAssociations(g, assocs)
+    asse.append(assets)
+    asso.append(assocs)
+    #addAssets(g, assets)
+    #addAssociations(g, assocs)
 
     assets, assocs = readMALSpec(url2)
-    addAssets(g, assets)
-    addAssociations(g, assocs)
+    asse.append(assets)
+    asso.append(assocs)
+    #addAssets(g, assets)
+    #addAssociations(g, assocs)
 
     assets, assocs = readMALSpec(url3)
-    addAssets(g, assets)
-    addAssociations(g, assocs)
-    #instance layer
-    s = xmlToModel(g, './data-models/networkSegmentation.sCAD', './data-models/networkSegmentation.csv')
-    #o = g.V().where(__.out("instanceOf").out("instanceOf").hasLabel("assets")).toList()
-    print(g.V().hasLabel("Vulnerability").label().next())
-    #ex1P1(g)
-    runTest(g)
-    #print("-----------")
-    #print(g.V().has('name', 'data').out("instanceOf").label().toList())
-    #print(g.V().has('name', 'data').out("encryptCreds").out("instanceOf").label().toList())
+    asse.append(assets)
+    asso.append(assocs)
     
-    convertPropertyGraphToSecuriCAD(g, s)
+    addAssets(g, asse)
+    addAssociations(g, asso)
+    #instance layer
+    s = xmlToModel(g, './data-models/nw-segmentation-reworked.sCAD', './data-models/nw-segmentation-rework.csv')
+    #o = g.V().where(__.out("instanceOf").out("instanceOf").hasLabel("assets")).toList()
+    # print(g.V().hasLabel("UnknownSoftwareVulnerability").out("extends").label().next())
+    # print(g.V().hasLabel("UnknownSoftwareVulnerability").out("extends").out("extends").label().next())
+ 
+    # f = addNewObject(g, "RoutingFirewall", "firewall1")
+    # n = addNewObject(g, "Network", "network1")
+    # addNewAssociation(g, f, n, "NetworkExposure", "applications")
+    # link = getLinkName(g, n, f, "applications")
+    # print("linkname = ", link)
+
+    # f2 = addNewObject(g, "RoutingFirewall", "firewall1")
+    # addNewAssociation(g, f, f2, "AppExecution", "hostApp")
+    # role2 = getRoleInAssociation(g, f, f2)
+    # print("HOLA",role2)
+
+    # id1 = addNewObject(g, "Identity", "id1")
+    # addNewAssociation(g, n, id1, "doeNotE", "r1")
+
+    # con = addNewObject(g, "ConnectionRule", "con")
+    # addNewAssociation(g, con, f, "ConnectionRule", "connectionRules")
+    # addNewAssociation(g, con, f2, "ConnectionRule", "connectionRules")
+    # validatePatternExchange(g)
+   
+    # print("TEST")
+    # print(test)
+    # print("OLD VARIANT")
+    # print(metaAssocs)
+
+    # print("FIREWALL OBJECT")
+    # print("Properties ",g.V(f.id).properties().toList())
+    # print("instanceOf " ,g.V(f.id).out("instanceOf").label().next())
+    # print("defenses: ", g.V(f.id).out("defense").out("instanceOf").label().toList())
+    # print("AttackSteps: ", g.V(f.id).out("attackStep").out("instanceOf").label().toList())
+
+    # print("NETWORK OBJECT")
+    # print("Properties ", g.V().has('name', "network1").properties().toList())
+    # print("instanceOf " ,g.V().has('name', "network1").out("instanceOf").label().next())
+    # print("defenses: ", g.V().has('name', "network1").out("defense").out("instanceOf").label().toList())
+    # print("AttackSteps: ", g.V().has('name', "network1").out("attackStep").out("instanceOf").label().toList())
+
+
+    runTest(g)
+   
+    print( "The program ha now finished")
+
+    connection.close()
+    
+    #convertPropertyGraphToSecuriCAD(g, s)
 
     
     
