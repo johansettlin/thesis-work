@@ -12,3 +12,6 @@
 3. The function `xmlToModel()` takes a XML and a CSV files as input, this function converts the SecuriCAD model togheter with the simulation results to the instance-layer in the database.
 4. The function `runTest()`runs the predefinded exchange patterns on the model which are located in the file `tests.py`.
 5. The function `convertPropertyGraphToSecuriCAD()`takes the reference to the database and to the xml file and rewrites the xml file with the new updated model.
+## Additional important files
+- The file `graph_api.py` is where all te functionality to change the instance layer exists such as `addNewObject()`etc. This is also where the validation of an exchange pattern takes place deciding if we keep the change or restore the pattern in the function `validatePatternExchange()`.
+- The file `graphModels.py` holds the functionality to generate the graph database from an xml file and from the URL:s describing the mal-dsl.
